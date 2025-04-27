@@ -1,0 +1,94 @@
+/* Estilo geral do corpo */
+body {
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+  }
+  
+  /* Cabeçalho */
+  header {
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  header h1 {
+    color: #6c5ce7;
+    font-size: 32px;
+    margin: 0;
+  }
+  
+  header h4 {
+    color: #888;
+    font-size: 16px;
+  }
+  
+  header .d-flex {
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  header .badge {
+    background-color: #28a745;
+  }
+  
+  header img {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+  }
+  
+  /* Estilo dos botões */
+  .btn-purple {
+    background-color: #6c5ce7;
+    color: white;
+    border: none;
+    font-size: 16px;
+    padding: 15px;
+    font-weight: bold;
+    border-radius: 10px;
+  }
+  
+  .btn-purple:hover {
+    background-color: #5a4dd7;
+  }
+  
+  /* Botões na grade */
+  .container .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .container .row .col-6 {
+    width: 48%;
+    margin-bottom: 10px;
+  }
+  
+  .container .row .col-md-3 {
+    width: 23%;
+    margin-bottom: 10px;
+  }
+  
+  /* Responsividade para dispositivos móveis */
+  @media (max-width: 576px) {
+    header h1 {
+      font-size: 24px;
+    }
+  
+    header h4 {
+      font-size: 14px;
+    }
+  
+    .btn-purple {
+      font-size: 14px;
+      padding: 12px;
+    }
+  
+    .container .row .col-6 {
+      width: 100%; /* Faz com que os botões ocupem toda a largura da tela */
+    }
+  }
+  
