@@ -1,6 +1,6 @@
 /* Estilo geral do corpo */
 body {
-    background-color: #7a1c1c;
+    background-color: #f4f4f4;
     display: flex;
     justify-content: center; /* Centraliza o conteúdo horizontalmente */
     align-items: center;     /* Centraliza o conteúdo verticalmente */
@@ -11,7 +11,7 @@ body {
   
   /* Estilo do container de login */
   .login-container {
-    background-color: rgb(14, 13, 13);
+    background-color: white;
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -31,7 +31,7 @@ body {
   /* Estilo do título */
   .login-container h2 {
     margin-bottom: 20px;
-    color: #0a0a0e;
+    color: #6c5ce7;
     font-size: 24px;
   }
   
@@ -48,7 +48,7 @@ body {
   }
   
   .btn-primary:hover {
-    background-color: #030303;
+    background-color: #5a4dd7;
   }
   
   /* Responsividade para dispositivos móveis */
