@@ -1,7 +1,7 @@
 # 🚀 Renault Risk Management System - Projeto Aplicado SENAI
 
-![Renault Logo](https://www.renault.com.br/renault/ms-icon-144x144.png)
 ![SENAI Logo](https://ava.sesisenai.org.br/pluginfile.php/1/theme_senai/logocompact/300x300/1745950167/logo-nova.png)
+![Renault Logo](https://www.renault.com.br/renault/ms-icon-144x144.png)
 
 **Tecnologia Inteligente na Gestão de Riscos Industriais**  
 *Solução completa para identificação, registro e prevenção de riscos na linha de produção*
