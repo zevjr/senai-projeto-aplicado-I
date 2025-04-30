@@ -1,7 +1,7 @@
 # 🚀 Renault Risk Management System - Projeto Aplicado SENAI
 
-![Renault Logo](https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Renault_2009_logo.svg/1200px-Renault_2009_logo.svg.png)
-![SENAI Logo](https://www.sc.senai.br/images/senai_logo_branco.png)
+![Renault Logo](https://yt3.googleusercontent.com/REXY-yRizMYpJ2z7oejiWXmvWTIzkSPARsRYmfVG0luZrAX-2W7OfkTiYv6Lo19KAUh6R2dyIA=s900-c-k-c0x00ffffff-no-rj)
+![SENAI Logo](https://ava.sesisenai.org.br/pluginfile.php/1/theme_senai/logocompact/300x300/1745950167/logo-nova.png)
 
 **Tecnologia Inteligente na Gestão de Riscos Industriais**  
 *Solução completa para identificação, registro e prevenção de riscos na linha de produção*
@@ -142,19 +142,3 @@ Equipe de Desenvolvimento:
 - Leandro Silva - [@leandro](https://github.com/leandro)
 
 Projeto desenvolvido como parte do curso de **Análise e Desenvolvimento de Sistemas** no [SENAI/SC](https://www.sc.senai.br/).
-```
-
-### Recursos Incluídos:
-1. **Badges dinâmicas** - Mostram status atual do repositório
-2. **Diagrama Mermaid** - Visualização da arquitetura
-3. **Links interativos** - Para protótipos e documentação
-4. **Seções organizadas** - Com emojis e formatação clara
-5. **Botões de ação** - Como "Open in StackBlitz"
-6. **Instruções de execução** - Com exemplos de código
-7. **Política de contribuição** - Padrão GitHub
-
-Você pode personalizar ainda mais:
-- Adicionar GIFs demonstrando a aplicação
-- Incluir capturas de tela
-- Adicionar tabela de comparação com soluções existentes
-- Incluir FAQ técnico
