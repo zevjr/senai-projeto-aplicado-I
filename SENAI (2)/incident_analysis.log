@@ -1,0 +1,61 @@
+2025-05-25 20:22:09,475 - INFO - Iniciando o sistema de análise de incidentes
+2025-05-25 20:22:09,475 - INFO - Falha catastrófica no sistema
+Traceback (most recent call last):
+  File "C:\Users\beni_\PycharmProjects\SENAI\main.py", line 60, in main
+    result = system.process_text(sample_text)
+             ^^^^^^
+NameError: name 'system' is not defined
+2025-05-25 20:22:09,475 - INFO - Encerrando o sistema de análise
+2025-05-25 20:34:26,125 - INFO - Iniciando o sistema de análise de incidentes
+2025-05-25 20:34:26,126 - INFO - Sistema Inicializando com sucesso
+2025-05-25 20:34:26,126 - CRITICAL - Falha catastrófica no sistema
+Traceback (most recent call last):
+  File "C:\Users\beni_\PycharmProjects\SENAI\main.py", line 61, in main
+    result = system.process_text(sample_text)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: IncidentAnalysisSystem.process_text() missing 1 required positional argument: 'text'
+2025-05-25 20:34:26,129 - INFO - Encerrando o sistema de análise
+2025-05-26 17:17:29,390 - INFO - Iniciando o sistema de análise de incidentes
+2025-05-26 17:17:29,391 - INFO - Sistema Inicializando com sucesso
+2025-05-26 17:17:29,391 - CRITICAL - Falha catastrófica no sistema
+Traceback (most recent call last):
+  File "C:\Users\beni_\PycharmProjects\SENAI\main.py", line 61, in main
+    result = system.process_text(sample_text)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: IncidentAnalysisSystem.process_text() missing 1 required positional argument: 'text'
+2025-05-26 17:17:29,397 - INFO - Encerrando o sistema de análise
+2025-05-26 19:51:37,659 - INFO - Iniciando o sistema de análise de incidentes
+2025-05-26 19:51:37,662 - INFO - Sistema Inicializando com sucesso
+2025-05-26 19:51:37,662 - CRITICAL - Falha catastrófica no sistema
+Traceback (most recent call last):
+  File "C:\Users\beni_\PycharmProjects\SENAI\main.py", line 103, in main
+    result = system.process_text(sample_text)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: IncidentAnalysisSystem.process_text() missing 1 required positional argument: 'text'
+2025-05-26 19:51:37,666 - INFO - Encerrando o sistema de análise
+2025-05-26 19:54:16,080 - INFO - Iniciando o sistema de análise de incidentes
+2025-05-26 19:54:16,080 - INFO - Sistema Inicializando com sucesso
+2025-05-26 19:54:16,080 - CRITICAL - Falha catastrófica no sistema
+Traceback (most recent call last):
+  File "C:\Users\beni_\PycharmProjects\SENAI\main.py", line 103, in main
+    result = system.process_text(sample_text)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: IncidentAnalysisSystem.process_text() missing 1 required positional argument: 'text'
+2025-05-26 19:54:16,083 - INFO - Encerrando o sistema de análise
+2025-05-26 19:54:59,306 - INFO - Iniciando o sistema de análise de incidentes
+2025-05-26 19:54:59,306 - CRITICAL - Falha na inicialização: name 'MediaProcessor' is not defined
+2025-05-26 19:54:59,306 - INFO - Sistema Inicializando com sucesso
+2025-05-26 19:54:59,306 - ERROR - Erro ao processar texto: 'IncidentAnalysisSystem' object has no attribute 'risk_analyzer'
+Traceback (most recent call last):
+  File "C:\Users\beni_\PycharmProjects\SENAI\main.py", line 33, in process_text
+    risk_level, justification = self.risk_analyzer.classify_incident(text)
+                                ^^^^^^^^^^^^^^^^^^
+AttributeError: 'IncidentAnalysisSystem' object has no attribute 'risk_analyzer'
+2025-05-26 19:54:59,310 - INFO - Resultado: (None, 5, "'IncidentAnalysisSystem' object has no attribute 'risk_analyzer'")
+2025-05-26 19:54:59,310 - INFO - Encerrando o sistema de análise
+2025-05-26 20:05:12,638 - INFO - Iniciando o sistema de análise de incidentes
+2025-05-26 20:05:12,640 - CRITICAL - Falha na inicialização: name 'MediaProcessor' is not defined
+2025-05-26 20:05:12,640 - INFO - Sistema Inicializando com sucesso
+2025-05-26 20:05:12,640 - ERROR - Erro ao processar texto: 'IncidentAnalysisSystem' object has no attribute 'risk_analyzer'
+2025-05-26 20:05:12,640 - INFO - Resultado: (None, 5, 'Erro no processamento')
+2025-05-26 20:05:12,641 - INFO - Encerrando o sistema de análise

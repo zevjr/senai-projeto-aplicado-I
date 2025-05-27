@@ -1,0 +1,32 @@
+2025-05-25 15:46:51,819 - CRITICAL - Falha na inicialização do sistema: 'utf-8' codec can't decode byte 0xe7 in position 78: invalid continuation byte
+2025-05-25 15:46:51,819 - CRITICAL - Falha no sistema: 'utf-8' codec can't decode byte 0xe7 in position 78: invalid continuation byte
+Traceback (most recent call last):
+  File "C:\Users\beni_\PycharmProjects\SENAI\main.py", line 39, in main
+    system = IncidentAnalysisSystem()
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\beni_\PycharmProjects\SENAI\main.py", line 26, in __init__
+    self.db_manager = DatabaseManager()
+                      ^^^^^^^^^^^^^^^^^
+  File "C:\Users\beni_\PycharmProjects\SENAI\database.py", line 13, in __init__
+    self._connect()
+  File "C:\Users\beni_\PycharmProjects\SENAI\database.py", line 18, in _connect
+    self.conn = psycopg2.connect(
+                ^^^^^^^^^^^^^^^^^
+  File "C:\Users\beni_\PycharmProjects\SENAI\.venv\Lib\site-packages\psycopg2\__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xe7 in position 78: invalid continuation byte
+2025-05-25 18:39:02,762 - INFO - Processando texto: Vazamento de produto químico
+2025-05-25 18:39:02,762 - CRITICAL - Falha no sistema: 'NoneType' object has no attribute 'process_text'
+Traceback (most recent call last):
+  File "C:\Users\beni_\PycharmProjects\SENAI\main.py", line 42, in main
+    result = system.process_text(sample_text)
+             ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'process_text'
+2025-05-25 18:39:25,252 - INFO - Processando texto: Vazamento de produto químico
+2025-05-25 18:39:25,253 - CRITICAL - Falha no sistema: 'NoneType' object has no attribute 'process_text'
+Traceback (most recent call last):
+  File "C:\Users\beni_\PycharmProjects\SENAI\main.py", line 42, in main
+    result = system.process_text(sample_text)
+             ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'process_text'
