@@ -1,5 +1,11 @@
 package main
 
+// @title           Senai Projeto Aplicado I API
+// @version         1.0
+// @description     API para o projeto aplicado do Senai
+// @host            localhost:8080
+// @BasePath        /
+
 import (
 	"log"
 	"net/http"
@@ -7,6 +13,11 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"github.com/joho/godotenv"
+
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
+
+	_ "github.com/zevjr/senai-projeto-aplicado-I/docs"
 )
 
 func main() {
@@ -21,13 +32,7 @@ func main() {
 	// Configurar o router Gin
 	r := gin.Default()
 
-	// Rota para verificar se a API está funcionando
-	r.GET("/health", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"status":  "ok",
-			"message": "API funcionando corretamente",
-		})
-	})
+	r.GET("/health", GetHealth)
 
 	// Rotas para usuários
 	r.GET("/users", GetUsers)
@@ -37,6 +42,7 @@ func main() {
 	// Rotas para registros
 	r.GET("/registers", GetRegisters)
 	r.POST("/registers", CreateRegister)
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	// Iniciar o servidor na porta 8080
 	log.Println("Servidor iniciado na porta 8080")
@@ -45,7 +51,29 @@ func main() {
 	}
 }
 
-// Handlers para usuários
+// GetHealth godoc
+// @Summary      Verificar saúde da API
+// @Description  Retorna status OK se a API estiver funcionando corretamente
+// @Tags         sistema
+// @Accept       json
+// @Produce      json
+// @Success      200  {object}  map[string]string
+// @Router       /health [get]
+func GetHealth(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{
+		"status":  "ok",
+		"message": "API funcionando corretamente",
+	})
+}
+
+// GetUsers godoc
+// @Summary      Get all users
+// @Description  Retrieves all users from the database
+// @Tags         users
+// @Accept       json
+// @Produce      json
+// @Success      200  {array}  User
+// @Router       /users [get]
 func GetUsers(c *gin.Context) {
 	var users []User
 	if result := DB.Find(&users); result.Error != nil {
@@ -55,6 +83,17 @@ func GetUsers(c *gin.Context) {
 	c.JSON(http.StatusOK, users)
 }
 
+// GetUser godoc
+// @Summary      Obter um usuário específico
+// @Description  Recupera um usuário pelo ID do banco de dados
+// @Tags         users
+// @Accept       json
+// @Produce      json
+// @Param        id   path      string  true  "ID do Usuário"
+// @Success      200  {object}  User
+// @Failure      400  {object}  map[string]string
+// @Failure      404  {object}  map[string]string
+// @Router       /users/{id} [get]
 func GetUser(c *gin.Context) {
 	id, err := uuid.Parse(c.Param("id"))
 	if err != nil {
@@ -71,6 +110,17 @@ func GetUser(c *gin.Context) {
 	c.JSON(http.StatusOK, user)
 }
 
+// CreateUser godoc
+// @Summary      Criar um novo usuário
+// @Description  Cria um novo usuário no banco de dados
+// @Tags         users
+// @Accept       json
+// @Produce      json
+// @Param        user  body      User  true  "Dados do Usuário"
+// @Success      201  {object}  User
+// @Failure      400  {object}  map[string]string
+// @Failure      500  {object}  map[string]string
+// @Router       /users [post]
 func CreateUser(c *gin.Context) {
 	var user User
 	if err := c.ShouldBindJSON(&user); err != nil {
@@ -91,7 +141,15 @@ func CreateUser(c *gin.Context) {
 	c.JSON(http.StatusCreated, user)
 }
 
-// Handlers para registros
+// GetRegisters godoc
+// @Summary      Obter todos os registros
+// @Description  Recupera todos os registros do banco de dados
+// @Tags         registers
+// @Accept       json
+// @Produce      json
+// @Success      200  {array}   Register
+// @Failure      500  {object}  map[string]string
+// @Router       /registers [get]
 func GetRegisters(c *gin.Context) {
 	var registers []Register
 	if result := DB.Find(&registers); result.Error != nil {
@@ -101,6 +159,17 @@ func GetRegisters(c *gin.Context) {
 	c.JSON(http.StatusOK, registers)
 }
 
+// CreateRegister godoc
+// @Summary      Criar um novo registro
+// @Description  Cria um novo registro no banco de dados
+// @Tags         registers
+// @Accept       json
+// @Produce      json
+// @Param        register  body      Register  true  "Dados do Registro"
+// @Success      201  {object}  Register
+// @Failure      400  {object}  map[string]string
+// @Failure      500  {object}  map[string]string
+// @Router       /registers [post]
 func CreateRegister(c *gin.Context) {
 	var register Register
 	if err := c.ShouldBindJSON(&register); err != nil {
