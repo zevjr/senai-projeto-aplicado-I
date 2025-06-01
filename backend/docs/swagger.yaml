@@ -1,0 +1,200 @@
+basePath: /
+definitions:
+  main.Register:
+    properties:
+      audio_uid:
+        type: string
+      body:
+        type: string
+      created_at:
+        type: string
+      image_uid:
+        type: string
+      local:
+        type: string
+      risk_scale:
+        type: integer
+      status:
+        type: string
+      title:
+        type: string
+      uid:
+        type: string
+    type: object
+  main.User:
+    properties:
+      created_at:
+        type: string
+      deleted_at:
+        type: string
+      role:
+        type: string
+      uid:
+        type: string
+      username:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: API para o projeto aplicado do Senai
+  title: Senai Projeto Aplicado I API
+  version: "1.0"
+paths:
+  /health:
+    get:
+      consumes:
+      - application/json
+      description: Retorna status OK se a API estiver funcionando corretamente
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Verificar saúde da API
+      tags:
+      - sistema
+  /registers:
+    get:
+      consumes:
+      - application/json
+      description: Recupera todos os registros do banco de dados
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/main.Register'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Obter todos os registros
+      tags:
+      - registers
+    post:
+      consumes:
+      - application/json
+      description: Cria um novo registro no banco de dados
+      parameters:
+      - description: Dados do Registro
+        in: body
+        name: register
+        required: true
+        schema:
+          $ref: '#/definitions/main.Register'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/main.Register'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Criar um novo registro
+      tags:
+      - registers
+  /users:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves all users from the database
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/main.User'
+            type: array
+      summary: Get all users
+      tags:
+      - users
+    post:
+      consumes:
+      - application/json
+      description: Cria um novo usuário no banco de dados
+      parameters:
+      - description: Dados do Usuário
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/main.User'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/main.User'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Criar um novo usuário
+      tags:
+      - users
+  /users/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Recupera um usuário pelo ID do banco de dados
+      parameters:
+      - description: ID do Usuário
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.User'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Obter um usuário específico
+      tags:
+      - users
+swagger: "2.0"
