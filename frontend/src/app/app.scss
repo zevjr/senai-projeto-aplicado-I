@@ -1,0 +1,53 @@
+
+/* Tema escuro personalizado */
+:root {
+  --bs-body-bg: #212529;
+  --bs-body-color: #fff;
+  --bs-primary: #0d6efd;
+  --bs-secondary: #6c757d;
+}
+
+body {
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.border-dashed {
+  border-style: dashed !important;
+}
+
+/* Personalização de componentes Bootstrap para o tema escuro */
+.card {
+  --bs-card-bg: #212529;
+}
+
+.input-group-text {
+  background-color: #343a40;
+}
+
+.form-control:focus,
+.form-select:focus {
+  background-color: #343a40;
+  color: #fff;
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.btn-primary {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #0d6efd;
+  --bs-btn-border-color: #0d6efd;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #0b5ed7;
+  --bs-btn-hover-border-color: #0a58ca;
+}
+
+/* Utilitários adicionais */
+.text-truncate-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -1,0 +1,24 @@
+<div class="mobile-container bg-black">
+  <header class="d-flex align-items-center px-3 py-2 bg-dark text-white border-bottom border-secondary">
+    <h5 class="mb-0 flex-grow-1 text-center text-info">Gerenciamento de riscos</h5>
+  </header>
+
+  <main class="content-area bg-black text-light">
+    <router-outlet></router-outlet>
+  </main>
+
+  <footer class="d-flex justify-content-around p-2 border-top border-secondary bg-dark">
+    <button class="btn btn-dark" routerLink="/risks">
+      <i class="bi bi-list-ul"></i>
+      <span class="d-block small">Riscos</span>
+    </button>
+    <button class="btn btn-dark" routerLink="/risks/new">
+      <i class="bi bi-list-ul"></i>
+      <span class="d-block small">Registrar</span>
+    </button>
+    <button class="btn btn-dark" (click)="logout()">
+      <i class="bi bi-box-arrow-right"></i>
+      <span class="d-block small">Sair</span>
+    </button>
+  </footer>
+</div>

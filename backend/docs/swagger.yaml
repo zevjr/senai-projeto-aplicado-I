@@ -41,7 +41,7 @@ info:
   title: Senai Projeto Aplicado I API
   version: "1.0"
 paths:
-  /health:
+  /api/health:
     get:
       consumes:
       - application/json
@@ -58,7 +58,7 @@ paths:
       summary: Verificar saúde da API
       tags:
       - sistema
-  /registers:
+  /api/registers:
     get:
       consumes:
       - application/json
@@ -114,7 +114,7 @@ paths:
       summary: Criar um novo registro
       tags:
       - registers
-  /users:
+  /api/users:
     get:
       consumes:
       - application/json
@@ -164,7 +164,7 @@ paths:
       summary: Criar um novo usuário
       tags:
       - users
-  /users/{id}:
+  /api/users/{id}:
     get:
       consumes:
       - application/json

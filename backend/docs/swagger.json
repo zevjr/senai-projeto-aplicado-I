@@ -9,7 +9,7 @@
     "host": "localhost:8080",
     "basePath": "/",
     "paths": {
-        "/health": {
+        "/api/health": {
             "get": {
                 "description": "Retorna status OK se a API estiver funcionando corretamente",
                 "consumes": [
@@ -35,7 +35,7 @@
                 }
             }
         },
-        "/registers": {
+        "/api/registers": {
             "get": {
                 "description": "Recupera todos os registros do banco de dados",
                 "consumes": [
@@ -120,7 +120,7 @@
                 }
             }
         },
-        "/users": {
+        "/api/users": {
             "get": {
                 "description": "Retrieves all users from the database",
                 "consumes": [
@@ -196,7 +196,7 @@
                 }
             }
         },
-        "/users/{id}": {
+        "/api/users/{id}": {
             "get": {
                 "description": "Recupera um usuário pelo ID do banco de dados",
                 "consumes": [
