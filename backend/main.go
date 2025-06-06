@@ -28,21 +28,21 @@ func main() {
 
 	// Configurar conexão com o banco de dados
 	SetupDB()
-
+	SeedDatabase(DB)
 	// Configurar o router Gin
 	r := gin.Default()
 
-	r.GET("/health", GetHealth)
+	r.GET("/api/health", GetHealth)
 
 	// Rotas para usuários
-	r.GET("/users", GetUsers)
-	r.GET("/users/:id", GetUser)
+	r.GET("/api/users", GetUsers)
+	r.GET("/api/users/:id", GetUser)
 	r.POST("/users", CreateUser)
 
 	// Rotas para registros
-	r.GET("/registers", GetRegisters)
-	r.POST("/registers", CreateRegister)
-	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	r.GET("/api/registers", GetRegisters)
+	r.POST("/api/registers", CreateRegister)
+	r.GET("/api/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	// Iniciar o servidor na porta 8080
 	log.Println("Servidor iniciado na porta 8080")
@@ -58,13 +58,13 @@ func main() {
 // @Accept       json
 // @Produce      json
 // @Success      200  {object}  map[string]string
-// @Router       /health [get]
+// @Router       /api/health [get]
 func GetHealth(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"status":  "ok",
 		"message": "API funcionando corretamente",
 	})
-}
+}1
 
 // GetUsers godoc
 // @Summary      Get all users
@@ -73,7 +73,7 @@ func GetHealth(c *gin.Context) {
 // @Accept       json
 // @Produce      json
 // @Success      200  {array}  User
-// @Router       /users [get]
+// @Router       /api/users [get]
 func GetUsers(c *gin.Context) {
 	var users []User
 	if result := DB.Find(&users); result.Error != nil {
@@ -93,7 +93,7 @@ func GetUsers(c *gin.Context) {
 // @Success      200  {object}  User
 // @Failure      400  {object}  map[string]string
 // @Failure      404  {object}  map[string]string
-// @Router       /users/{id} [get]
+// @Router       /api/users/{id} [get]
 func GetUser(c *gin.Context) {
 	id, err := uuid.Parse(c.Param("id"))
 	if err != nil {
@@ -120,7 +120,7 @@ func GetUser(c *gin.Context) {
 // @Success      201  {object}  User
 // @Failure      400  {object}  map[string]string
 // @Failure      500  {object}  map[string]string
-// @Router       /users [post]
+// @Router       /api/users [post]
 func CreateUser(c *gin.Context) {
 	var user User
 	if err := c.ShouldBindJSON(&user); err != nil {
@@ -149,7 +149,7 @@ func CreateUser(c *gin.Context) {
 // @Produce      json
 // @Success      200  {array}   Register
 // @Failure      500  {object}  map[string]string
-// @Router       /registers [get]
+// @Router       /api/registers [get]
 func GetRegisters(c *gin.Context) {
 	var registers []Register
 	if result := DB.Find(&registers); result.Error != nil {
@@ -169,7 +169,7 @@ func GetRegisters(c *gin.Context) {
 // @Success      201  {object}  Register
 // @Failure      400  {object}  map[string]string
 // @Failure      500  {object}  map[string]string
-// @Router       /registers [post]
+// @Router       /api/registers [post]
 func CreateRegister(c *gin.Context) {
 	var register Register
 	if err := c.ShouldBindJSON(&register); err != nil {

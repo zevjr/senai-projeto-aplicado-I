@@ -15,7 +15,7 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/health": {
+        "/api/health": {
             "get": {
                 "description": "Retorna status OK se a API estiver funcionando corretamente",
                 "consumes": [
@@ -41,7 +41,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/registers": {
+        "/api/registers": {
             "get": {
                 "description": "Recupera todos os registros do banco de dados",
                 "consumes": [
@@ -126,7 +126,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/users": {
+        "/api/users": {
             "get": {
                 "description": "Retrieves all users from the database",
                 "consumes": [
@@ -202,7 +202,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/users/{id}": {
+        "/api/users/{id}": {
             "get": {
                 "description": "Recupera um usuário pelo ID do banco de dados",
                 "consumes": [
