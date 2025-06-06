@@ -7,6 +7,7 @@ import {NgForOf, NgIf} from '@angular/common';
 @Component({
   selector: 'app-risk-form',
   templateUrl: './risk-form.component.html',
+  standalone: true,
   imports: [
     ReactiveFormsModule,
     NgIf,
