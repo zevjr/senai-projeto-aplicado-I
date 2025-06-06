@@ -53,7 +53,7 @@ func main() {
 
 // GetHealth godoc
 // @Summary      Verificar saúde da API
-// @Description  Retorna status OK se a API estiver funcionando corretamente
+// @Description  Retorna status OK se API estiver funcionando corretamente
 // @Tags         sistema
 // @Accept       json
 // @Produce      json
@@ -64,7 +64,7 @@ func GetHealth(c *gin.Context) {
 		"status":  "ok",
 		"message": "API funcionando corretamente",
 	})
-}1
+}
 
 // GetUsers godoc
 // @Summary      Get all users
