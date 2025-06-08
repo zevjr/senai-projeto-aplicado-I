@@ -1,0 +1,40 @@
+/* Estilos adicionais para aprimorar a aparência */
+
+.search-container {
+  /* Estilos para o container da busca */
+  display: block;
+  width: 100%;
+}
+
+.risk-grid {
+  /* Layout de grid responsivo para os cards */
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+/* Animação para o botão flutuante */
+.btn-primary {
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-primary:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Melhorias para o card de cada risco */
+app-risk-card {
+  display: block;
+  transition: transform 0.2s;
+}
+
+app-risk-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Estilo para o estado de carregamento */
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+}
