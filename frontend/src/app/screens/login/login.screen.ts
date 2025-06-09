@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {ChangeDetectorRef, Component, signal} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
@@ -6,17 +6,17 @@ import {NgClass, NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
+  templateUrl: './login.screen.html',
   imports: [
     ReactiveFormsModule,
     NgIf
   ],
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.screen.scss']
 })
-export class LoginComponent {
+export class LoginScreen {
   loginForm: FormGroup;
   errorMessage: string = '';
-  isLoading: boolean = false;
+  isLoading = signal(false);
 
   constructor(
     private fb: FormBuilder,
@@ -34,21 +34,19 @@ export class LoginComponent {
       return;
     }
 
-    this.isLoading = true;
+
     this.errorMessage = '';
 
     const { email, password } = this.loginForm.value;
-
+    this.isLoading.set(true);
     this.authService.login(email, password).subscribe({
       next: () => {
         this.router.navigate(['/risks']);
       },
       error: (error) => {
+        console.log("chegou aqui")
         this.errorMessage = error.message;
-        this.isLoading = false;
-      },
-      complete: () => {
-        this.isLoading = false;
+        this.isLoading.set(false);
       }
     });
   }

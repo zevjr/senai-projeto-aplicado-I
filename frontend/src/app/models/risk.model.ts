@@ -1,5 +1,5 @@
 export interface Risk {
-  id: number;
+  uid: number;
   title: string;
   description: string;
   location?: string;

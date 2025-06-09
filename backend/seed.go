@@ -30,21 +30,31 @@ func SeedDatabase(db *gorm.DB) {
 			Username:  "admin",
 			Role:      "admin",
 			CreatedAt: time.Now(),
+			Password:  "admin123",
+			Email:     "admin@gmail.com",
 		},
 		{
 			UID:       operatorUID,
 			Username:  "operador",
 			Role:      "operator",
 			CreatedAt: time.Now(),
+			Password:  "operador123",
+			Email:     "operador@gmail.com",
 		},
 	}
 
 	// Criando riscos
 	riskUID := uuid.New()
+	riskUIDTwo := uuid.New()
 	risks := []models.Risk{
 		{
 			UID:       riskUID,
 			Details:   "Risco de queda",
+			CreatedAt: time.Now(),
+		},
+		{
+			UID:       riskUIDTwo,
+			Details:   "Risco de corte",
 			CreatedAt: time.Now(),
 		},
 	}

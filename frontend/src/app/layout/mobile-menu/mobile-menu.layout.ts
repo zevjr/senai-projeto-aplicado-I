@@ -3,15 +3,15 @@ import { AuthService } from '../../services/auth.service';
 import {RouterLink, RouterOutlet} from '@angular/router';
 
 @Component({
-  selector: 'app-mobile-menu',
-  templateUrl: './mobile-menu.component.html',
+  selector: 'mobile-menu',
+  templateUrl: './mobile-menu.layout.html',
   imports: [
     RouterOutlet,
     RouterLink
   ],
-  styleUrls: ['./mobile-menu.component.scss']
+  styleUrls: ['./mobile-menu.layout.scss']
 })
-export class MobileMenuComponent {
+export class MobileMenuLayout {
   constructor(private authService: AuthService) { }
 
   logout(): void {
