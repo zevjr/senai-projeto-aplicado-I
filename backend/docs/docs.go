@@ -17,7 +17,7 @@ const docTemplate = `{
     "paths": {
         "/api/health": {
             "get": {
-                "description": "Retorna status OK se a API estiver funcionando corretamente",
+                "description": "Retorna status OK se API estiver funcionando corretamente",
                 "consumes": [
                     "application/json"
                 ],
@@ -60,7 +60,7 @@ const docTemplate = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/main.Register"
+                                "$ref": "#/definitions/models.Register"
                             }
                         }
                     },
@@ -94,7 +94,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/main.Register"
+                            "$ref": "#/definitions/models.Register"
                         }
                     }
                 ],
@@ -102,7 +102,7 @@ const docTemplate = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/main.Register"
+                            "$ref": "#/definitions/models.Register"
                         }
                     },
                     "400": {
@@ -145,7 +145,7 @@ const docTemplate = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/main.User"
+                                "$ref": "#/definitions/models.User"
                             }
                         }
                     }
@@ -170,7 +170,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/main.User"
+                            "$ref": "#/definitions/models.User"
                         }
                     }
                 ],
@@ -178,7 +178,7 @@ const docTemplate = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/main.User"
+                            "$ref": "#/definitions/models.User"
                         }
                     },
                     "400": {
@@ -228,7 +228,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/main.User"
+                            "$ref": "#/definitions/models.User"
                         }
                     },
                     "400": {
@@ -254,7 +254,7 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "main.Register": {
+        "models.Register": {
             "type": "object",
             "properties": {
                 "audio_uid": {
@@ -286,7 +286,7 @@ const docTemplate = `{
                 }
             }
         },
-        "main.User": {
+        "models.User": {
             "type": "object",
             "properties": {
                 "created_at": {

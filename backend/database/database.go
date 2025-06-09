@@ -1,7 +1,8 @@
-package main
+package database
 
 import (
 	"fmt"
+	"github.com/zevjr/senai-projeto-aplicado-I/models"
 	"log"
 	"os"
 
@@ -31,15 +32,15 @@ func SetupDB() {
 
 	// Automigração das tabelas
 	err = DB.AutoMigrate(
-		&User{},
-		&Risk{},
-		&UserRisk{},
-		&Register{},
-		&UserRegister{},
-		&Image{},
-		&Audio{},
-		&Preference{},
-		&Configuration{},
+		&models.User{},
+		&models.Risk{},
+		&models.UserRisk{},
+		&models.Register{},
+		&models.UserRegister{},
+		&models.Image{},
+		&models.Audio{},
+		&models.Preference{},
+		&models.Configuration{},
 	)
 	if err != nil {
 		log.Fatalf("Falha na migração do banco de dados: %v", err)

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/zevjr/senai-projeto-aplicado-I/models"
 	"log"
 	"time"
 
@@ -13,7 +14,7 @@ func SeedDatabase(db *gorm.DB) {
 
 	// Verifica se já existem dados
 	var userCount int64
-	db.Model(&User{}).Count(&userCount)
+	db.Model(&models.User{}).Count(&userCount)
 	if userCount > 0 {
 		log.Println("Banco de dados já possui dados, pulando seed")
 		return
@@ -23,7 +24,7 @@ func SeedDatabase(db *gorm.DB) {
 	adminUID := uuid.New()
 	operatorUID := uuid.New()
 
-	users := []User{
+	users := []models.User{
 		{
 			UID:       adminUID,
 			Username:  "admin",
@@ -40,7 +41,7 @@ func SeedDatabase(db *gorm.DB) {
 
 	// Criando riscos
 	riskUID := uuid.New()
-	risks := []Risk{
+	risks := []models.Risk{
 		{
 			UID:       riskUID,
 			Details:   "Risco de queda",
@@ -53,7 +54,7 @@ func SeedDatabase(db *gorm.DB) {
 	audioUID := uuid.New()
 	registerUID := uuid.New()
 
-	registers := []Register{
+	registers := []models.Register{
 		{
 			UID:       registerUID,
 			Title:     "Registro inicial",
@@ -68,7 +69,7 @@ func SeedDatabase(db *gorm.DB) {
 	}
 
 	// Criando imagens e áudios
-	images := []Image{
+	images := []models.Image{
 		{
 			UID:        imageUID,
 			BucketName: "default-bucket",
@@ -77,7 +78,7 @@ func SeedDatabase(db *gorm.DB) {
 		},
 	}
 
-	audios := []Audio{
+	audios := []models.Audio{
 		{
 			UID:        audioUID,
 			BucketName: "default-bucket",
@@ -87,7 +88,7 @@ func SeedDatabase(db *gorm.DB) {
 	}
 
 	// Criando relações
-	userRisks := []UserRisk{
+	userRisks := []models.UserRisk{
 		{
 			UID:       uuid.New(),
 			UserUID:   adminUID,
@@ -96,7 +97,7 @@ func SeedDatabase(db *gorm.DB) {
 		},
 	}
 
-	userRegisters := []UserRegister{
+	userRegisters := []models.UserRegister{
 		{
 			UID:         uuid.New(),
 			UserUID:     adminUID,
