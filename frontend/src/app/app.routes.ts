@@ -1,27 +1,26 @@
 import { Routes } from '@angular/router';
-import {RiskListComponent} from './screens/risk-list/risk-list.component';
-import {AuthGuard} from './guards/auth.guard';
-import {MobileMenuComponent} from './layout/mobile-menu/mobile-menu.component';
-import {LoginComponent} from './screens/login/login.component';
-import {PublicComponent} from './layout/public/public.component';
-import {RiskFormComponent} from './screens/risk-form/risk-form.component';
+import {RiskListScreen} from './screens/risk-list/risk-list.screen';
+import {MobileMenuLayout} from './layout/mobile-menu/mobile-menu.layout';
+import {LoginScreen} from './screens/login/login.screen';
+import {RiskFormScreen} from './screens/risk-form/risk-form.screen';
+import {MobilePublicLayout} from "./layout/mobile-public/mobile-public.layout";
 
 export const routes: Routes = [
   {
     path: '',
-    component: PublicComponent,
+    component: MobilePublicLayout,
     children: [
       { path: '', redirectTo: '/login', pathMatch: 'full' },
-      { path: 'login', component: LoginComponent }
+      { path: 'login', component: LoginScreen }
     ]
   },
   {
     path: '',
-    component: MobileMenuComponent,
+    component: MobileMenuLayout,
     // canActivate: [AuthGuard],
     children: [
-      { path: 'risks', component: RiskListComponent },
-      { path: 'risks/new', component: RiskFormComponent }
+      { path: 'risks', component: RiskListScreen },
+      { path: 'risks/new', component: RiskFormScreen }
     ]
   },
   { path: '**', redirectTo: '/login' }

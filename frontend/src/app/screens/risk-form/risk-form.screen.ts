@@ -1,20 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
-import { RiskService } from '../../services/risk.service';
+import { RegistersService } from '../../services/registers.service';
 import {NgForOf, NgIf} from '@angular/common';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-risk-form',
-  templateUrl: './risk-form.component.html',
+  templateUrl: './risk-form.screen.html',
   imports: [
     ReactiveFormsModule,
     NgIf,
     NgForOf
   ],
-  styleUrls: ['./risk-form.component.scss']
+  styleUrls: ['./risk-form.screen.scss']
 })
-export class RiskFormComponent implements OnInit {
+export class RiskFormScreen implements OnInit {
   riskForm: FormGroup;
   isLoading: boolean = false;
   errorMessage: string = '';
@@ -22,8 +23,9 @@ export class RiskFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private riskService: RiskService,
-    private router: Router
+    private registersService: RegistersService,
+    private router: Router,
+    private toastr: ToastrService
   ) {
     this.riskForm = this.fb.group({
       location: ['', Validators.required],
@@ -40,7 +42,14 @@ export class RiskFormComponent implements OnInit {
     const files = event.target.files;
     if (files) {
       for (let i = 0; i < files.length; i++) {
-        this.selectedFiles.push(files[i]);
+        const file = files[i];
+        if (file.type.startsWith('audio/') && !this.selectedFiles.some(f => f.type.startsWith('audio/'))) {
+          this.selectedFiles.push(file);
+        } else if (file.type.startsWith('video/') && !this.selectedFiles.some(f => f.type.startsWith('video/'))) {
+          this.selectedFiles.push(file);
+        } else {
+          this.toastr.warning('You can only upload one audio and one video file.', 'Warning');
+        }
       }
     }
   }
@@ -62,12 +71,13 @@ export class RiskFormComponent implements OnInit {
       title: `Risk: ${this.riskForm.value.riskLevel}`
     };
 
-    this.riskService.createRisk(riskData).subscribe({
+    this.registersService.createRegister(riskData).subscribe({
       next: () => {
+        this.toastr.success('Registro de risco criado com sucesso!', 'Sucesso');
         this.router.navigate(['/risks']);
       },
       error: (error) => {
-        this.errorMessage = 'Erro ao criar risco. Por favor, tente novamente.';
+        this.errorMessage = 'Erro ao criar registro de risco. Por favor, tente novamente.';
         this.isLoading = false;
       },
       complete: () => {

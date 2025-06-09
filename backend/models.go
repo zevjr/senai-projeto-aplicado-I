@@ -13,6 +13,8 @@ type User struct {
 	Role      string     `json:"role" gorm:"type:varchar"`
 	CreatedAt time.Time  `json:"created_at" gorm:"type:timestamp"`
 	DeletedAt *time.Time `json:"deleted_at" gorm:"type:timestamp"`
+	Password  string     `json:"password,omitempty" gorm:"type:varchar"`
+	Email     string     `json:"email,omitempty" gorm:"type:varchar"`
 }
 
 // Risk representa a entidade de riscos

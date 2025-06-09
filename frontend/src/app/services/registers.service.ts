@@ -6,28 +6,21 @@ import { Risk } from '../models/risk.model';
 @Injectable({
   providedIn: 'root'
 })
-export class RiskService {
+export class RegistersService {
   private apiUrl = '/api/registers';
 
   constructor(private http: HttpClient) { }
 
-  getRisks(): Observable<Risk[]> {
+  getRegisters(): Observable<Risk[]> {
     return this.http.get<Risk[]>(this.apiUrl);
   }
 
-  getRisk(id: number): Observable<Risk> {
+  getRegister(id: number): Observable<Risk> {
     return this.http.get<Risk>(`${this.apiUrl}/${id}`);
   }
 
-  createRisk(risk: Partial<Risk>): Observable<Risk> {
+  createRegister(risk: Partial<Risk>): Observable<Risk> {
     return this.http.post<Risk>(this.apiUrl, risk);
   }
 
-  updateRisk(id: number, risk: Partial<Risk>): Observable<Risk> {
-    return this.http.put<Risk>(`${this.apiUrl}/${id}`, risk);
-  }
-
-  deleteRisk(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
-  }
 }
