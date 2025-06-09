@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: 'app-root',
+  standalone: true,
   imports: [RouterOutlet],
   templateUrl: './app.html',
-  styleUrl: './app.scss',
-
+  styleUrls: ['./app.scss']
 })
 export class App {
   protected title = 'senai-projeto-aplicado-1';
