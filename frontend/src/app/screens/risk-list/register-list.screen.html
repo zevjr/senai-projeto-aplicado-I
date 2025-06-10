@@ -19,7 +19,7 @@
             <div class="risk-cards-container">
             @for (risk of filteredRisks(); track risk.uid) {
               <app-risk-card
-                      [risk]="risk"
+                      [register]="risk"
                       class="mb-3 risk-card">
               </app-risk-card>
             }

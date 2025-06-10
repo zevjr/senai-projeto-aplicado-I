@@ -1,25 +1,25 @@
 import {Component, OnInit, signal, WritableSignal} from '@angular/core';
-import { Risk } from '../../models/risk.model';
 import { RegistersService } from '../../services/registers.service';
 import {NgIf} from '@angular/common';
 import {RiskCardComponent} from '../../components/risk-card/risk-card.component';
+import {Register} from "../../models/register.model";
 
 @Component({
   selector: 'app-risk-list',
-  templateUrl: './risk-list.screen.html',
+  templateUrl: './register-list.screen.html',
   imports: [
     NgIf,
     RiskCardComponent
   ],
-  styleUrls: ['./risk-list.screen.scss']
+  styleUrls: ['./register-list.screen.scss']
 })
-export class RiskListScreen implements OnInit {
-  risks: Risk[] = [];
-  filteredRisks: WritableSignal<Risk[]> = signal([]);
+export class RegisterListScreen implements OnInit {
+  registers: Register[] = [];
+  filteredRisks: WritableSignal<Register[]> = signal([]);
   isLoading: WritableSignal<Boolean> = signal(false);
   errorMessage: string = '';
 
-  constructor(private riskService: RegistersService) { }
+  constructor(private registersService: RegistersService) { }
 
   ngOnInit(): void {
     this.loadRisks();
@@ -27,9 +27,9 @@ export class RiskListScreen implements OnInit {
 
   loadRisks(): void {
     this.isLoading.set(false);
-    this.riskService.getRegisters().subscribe({
+    this.registersService.getRegisters().subscribe({
       next: (data) => {
-        this.risks = data;
+        this.registers = data;
         this.filteredRisks.set(data);
         this.isLoading.set(false);
       },

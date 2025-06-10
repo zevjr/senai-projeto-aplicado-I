@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Risk } from '../models/risk.model';
+import {Register} from "../models/register.model";
 
 @Injectable({
   providedIn: 'root'
@@ -11,16 +11,16 @@ export class RegistersService {
 
   constructor(private http: HttpClient) { }
 
-  getRegisters(): Observable<Risk[]> {
-    return this.http.get<Risk[]>(this.apiUrl);
+  getRegisters(): Observable<Register[]> {
+    return this.http.get<Register[]>(this.apiUrl);
   }
 
-  getRegister(id: number): Observable<Risk> {
-    return this.http.get<Risk>(`${this.apiUrl}/${id}`);
+  getRegister(id: number): Observable<Register> {
+    return this.http.get<Register>(`${this.apiUrl}/${id}`);
   }
 
-  createRegister(risk: Partial<Risk>): Observable<Risk> {
-    return this.http.post<Risk>(this.apiUrl, risk);
+  createRegister(register: Partial<Register>): Observable<Register> {
+    return this.http.post<Register>(this.apiUrl, register);
   }
 
 }

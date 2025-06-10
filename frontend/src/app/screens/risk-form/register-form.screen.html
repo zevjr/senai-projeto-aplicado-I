@@ -1,0 +1,130 @@
+<div class="risk-form-container">
+    <h2 class="text-center mb-4">Apontar o Risco</h2>
+
+    <form [formGroup]="riskForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+            <label for="location" class="form-label">Localização</label>
+            <select
+                    id="location"
+                    formControlName="location"
+                    class="form-select bg-dark text-white border-secondary">
+                <option value="" disabled>Selecionar Localização</option>
+                <option value="assembly_line_1">Linha de montagem 1</option>
+                <option value="assembly_line_2">Linha de montagem 2</option>
+                <option value="warehouse">Estoque</option>
+                <option value="testing_area">Area de testes</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="riskLevel" class="form-label">Nível do risco</label>
+            <select
+                    id="riskLevel"
+                    formControlName="riskLevel"
+                    class="form-select bg-dark text-white border-secondary">
+                <option value="" disabled>Selecione o nível do risco</option>
+                <option value="Baixo">Baixo</option>
+                <option value="Médio">Médio</option>
+                <option value="Alto">Alto</option>
+                <option value="Crítico">Crítico</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="riskScale" class="form-label">Escala do Risco</label>
+            <div class="d-flex align-items-center">
+                <input
+                        type="range"
+                        class="form-range"
+                        formControlName="riskScale"
+                        min="1"
+                        max="10"
+                        id="riskScale">
+                <span class="ms-2">{{ riskForm.get('riskScale')?.value }}</span>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Descrição</label>
+            <textarea
+                    id="description"
+                    formControlName="description"
+                    class="form-control bg-dark text-white border-secondary"
+                    rows="4"
+                    placeholder="Descreva o risco"></textarea>
+        </div>
+
+        <div class="mb-4">
+            <label class="form-label">Upload Áudio</label>
+            <div class="upload-container border border-secondary rounded p-3 text-center">
+                <p>Adicione um áudio para nos ajudar a entender melhor o risco.</p>
+                <input
+                        type="file"
+                        class="d-none"
+                        #audioInput
+                        accept="audio/*"
+                        (change)="onAudioSelected($event)">
+                <button
+                        type="button"
+                        class="btn btn-outline-light"
+                        (click)="audioInput.click()">
+                    Upload Áudio
+                </button>
+
+                @if (selectedAudio) {
+                    <div class="mt-3">
+                        <div class="d-flex justify-content-between align-items-center border-bottom py-2">
+                            <div>{{ selectedAudio!.name }}</div>
+                            <button type="button" class="btn btn-sm btn-danger" (click)="removeAudio()">Remover</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <label class="form-label">Upload Foto</label>
+            <div class="upload-container border border-secondary rounded p-3 text-center">
+                <p>Adicione uma foto para nos ajudar a entender melhor o risco.</p>
+                <input
+                        type="file"
+                        class="d-none"
+                        #photoInput
+                        accept="image/*"
+                        (change)="onPhotoSelected($event)">
+                <button
+                        type="button"
+                        class="btn btn-outline-light"
+                        (click)="photoInput.click()">
+                    Upload Foto
+                </button>
+
+                @if (selectedPhoto) {
+                    <div class="mt-3">
+                        <div class="d-flex justify-content-between align-items-center border-bottom py-2">
+                            <div>{{ selectedPhoto!.name }}</div>
+                            <button type="button" class="btn btn-sm btn-danger" (click)="removePhoto()">Remover</button>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+
+        @if (errorMessage) {
+            <div class="alert alert-danger">
+                {{ errorMessage }}
+            </div>
+        }
+
+        <button
+                type="submit"
+                class="btn btn-primary w-100"
+                [disabled]="riskForm.invalid || isLoading">
+            @if (isLoading()) {
+                <span class="spinner-border spinner-border-sm me-2"></span>
+            }
+            Submit Report
+        </button>
+    </form>
+</div>
