@@ -71,7 +71,7 @@ const docTemplate = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/models.Audio"
+                            "$ref": "#/definitions/dto.AudioWithoutData"
                         }
                     },
                     "400": {
@@ -224,7 +224,7 @@ const docTemplate = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/models.Image"
+                            "$ref": "#/definitions/dto.ImageWithoutData"
                         }
                     },
                     "400": {
@@ -580,54 +580,6 @@ const docTemplate = `{
             "properties": {
                 "created_at": {
                     "type": "string"
-                },
-                "mime_type": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "uid": {
-                    "type": "string"
-                }
-            }
-        },
-        "models.Audio": {
-            "type": "object",
-            "properties": {
-                "created_at": {
-                    "type": "string"
-                },
-                "data": {
-                    "description": "For PostgreSQL",
-                    "type": "array",
-                    "items": {
-                        "type": "integer"
-                    }
-                },
-                "mime_type": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "uid": {
-                    "type": "string"
-                }
-            }
-        },
-        "models.Image": {
-            "type": "object",
-            "properties": {
-                "created_at": {
-                    "type": "string"
-                },
-                "data": {
-                    "description": "For PostgreSQL",
-                    "type": "array",
-                    "items": {
-                        "type": "integer"
-                    }
                 },
                 "mime_type": {
                     "type": "string"

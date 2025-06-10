@@ -22,38 +22,6 @@ definitions:
       uid:
         type: string
     type: object
-  models.Audio:
-    properties:
-      created_at:
-        type: string
-      data:
-        description: For PostgreSQL
-        items:
-          type: integer
-        type: array
-      mime_type:
-        type: string
-      name:
-        type: string
-      uid:
-        type: string
-    type: object
-  models.Image:
-    properties:
-      created_at:
-        type: string
-      data:
-        description: For PostgreSQL
-        items:
-          type: integer
-        type: array
-      mime_type:
-        type: string
-      name:
-        type: string
-      uid:
-        type: string
-    type: object
   models.Register:
     properties:
       audio_uid:
@@ -136,7 +104,7 @@ paths:
         "201":
           description: Created
           schema:
-            $ref: '#/definitions/models.Audio'
+            $ref: '#/definitions/dto.AudioWithoutData'
         "400":
           description: Bad Request
           schema:
@@ -237,7 +205,7 @@ paths:
         "201":
           description: Created
           schema:
-            $ref: '#/definitions/models.Image'
+            $ref: '#/definitions/dto.ImageWithoutData'
         "400":
           description: Bad Request
           schema:

@@ -19,7 +19,7 @@ import (
 // @Accept       multipart/form-data
 // @Produce      json
 // @Param        file  formData  file  true  "Image to upload"
-// @Success      201  {object}  models.Image
+// @Success      201  {object}  dto.ImageWithoutData
 // @Failure      400  {object}  map[string]string
 // @Failure      500  {object}  map[string]string
 // @Router       /api/images [post]
@@ -47,11 +47,17 @@ func UploadImage(c *gin.Context) {
 		Data:      data,
 		CreatedAt: time.Now(),
 	}
+	imgWithoutData := dto.ImageWithoutData{
+		UID:       img.UID,
+		Name:      img.Name,
+		MimeType:  img.MimeType,
+		CreatedAt: img.CreatedAt,
+	}
 	if result := database.DB.Create(&img); result.Error != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
 		return
 	}
-	c.JSON(http.StatusCreated, img)
+	c.JSON(http.StatusCreated, imgWithoutData)
 }
 
 // GetImage godoc
@@ -126,7 +132,7 @@ func GetAudios(c *gin.Context) {
 // @Accept       multipart/form-data
 // @Produce      json
 // @Param        file  formData  file  true  "Audio to upload"
-// @Success      201  {object}  models.Audio
+// @Success      201  {object}  dto.AudioWithoutData
 // @Failure      400  {object}  map[string]string
 // @Failure      500  {object}  map[string]string
 // @Router       /api/audios [post]
@@ -154,11 +160,17 @@ func UploadAudio(c *gin.Context) {
 		Data:      data,
 		CreatedAt: time.Now(),
 	}
+	audioWithoutData := dto.AudioWithoutData{
+		UID:       audio.UID,
+		Name:      audio.Name,
+		MimeType:  audio.MimeType,
+		CreatedAt: audio.CreatedAt,
+	}
 	if result := database.DB.Create(&audio); result.Error != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
 		return
 	}
-	c.JSON(http.StatusCreated, audio)
+	c.JSON(http.StatusCreated, audioWithoutData)
 }
 
 // GetAudio godoc
