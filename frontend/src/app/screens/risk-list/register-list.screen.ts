@@ -1,5 +1,5 @@
 import {Component, OnInit, signal, WritableSignal} from '@angular/core';
-import { RegistersService } from '../../services/registers.service';
+import { RegisterService } from '../../services/register.service';
 import {NgIf} from '@angular/common';
 import {RiskCardComponent} from '../../components/risk-card/risk-card.component';
 import {Register} from "../../models/register.model";
@@ -19,7 +19,7 @@ export class RegisterListScreen implements OnInit {
   isLoading: WritableSignal<Boolean> = signal(false);
   errorMessage: string = '';
 
-  constructor(private registersService: RegistersService) { }
+  constructor(private registersService: RegisterService) { }
 
   ngOnInit(): void {
     this.loadRisks();

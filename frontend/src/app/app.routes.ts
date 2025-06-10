@@ -1,9 +1,10 @@
 import { Routes } from '@angular/router';
-import {RegisterListScreen} from './screens/risk-list/register-list.screen';
+
 import {MobileMenuLayout} from './layout/mobile-menu/mobile-menu.layout';
 import {LoginScreen} from './screens/login/login.screen';
-import {RegisterFormScreen} from './screens/risk-form/register-form.screen';
 import {MobilePublicLayout} from "./layout/mobile-public/mobile-public.layout";
+import {RegisterFormScreen} from "./screens/risk-form/register-form.screen";
+import {RegisterListScreen} from "./screens/risk-list/register-list.screen";
 
 export const routes: Routes = [
   {
