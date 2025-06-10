@@ -14,12 +14,13 @@ func SetupRouter() *gin.Engine {
 
 	// Rotas para usuários
 	r.GET("/api/users", handlers.GetUsers)
-	r.GET("/api/users/:id", handlers.GetUser)
+	r.GET("/api/users/:uid", handlers.GetUser)
 	r.POST("/api/users", handlers.CreateUser)
 
 	// Rotas para registros
 	r.GET("/api/registers", handlers.GetRegisters)
 	r.POST("/api/registers", handlers.CreateRegister)
+	r.GET("/api/registers/:uid", handlers.GetRegister)
 
 	// Rotas para arquivos
 	r.POST("/api/images", handlers.UploadImage)

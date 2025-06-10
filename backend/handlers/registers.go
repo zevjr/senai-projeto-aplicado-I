@@ -6,6 +6,7 @@ import (
 	"github.com/zevjr/senai-projeto-aplicado-I/database"
 	"github.com/zevjr/senai-projeto-aplicado-I/models"
 	"net/http"
+	"time"
 )
 
 // CreateRegister godoc
@@ -26,14 +27,10 @@ func CreateRegister(c *gin.Context) {
 		return
 	}
 
-	// Gerar um novo UUID se não for fornecido
-	if register.UID == uuid.Nil {
-		register.UID = uuid.New()
-	}
+	register.UID = uuid.New()
+	register.CreatedAt = time.Now()
 
-	//TODO: Enviar as fotos para o Bucket e armazenar o ID na tabela de imagens
-	//TODO: Enviar os audios para o Bucket e armazenar o ID na tabela de imagens
-	//TODO: Criar a rotina para consumir os registros e enviar los para a AI
+	//TODO: IA
 
 	if result := database.DB.Create(&register); result.Error != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
@@ -59,4 +56,32 @@ func GetRegisters(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, registers)
+}
+
+// GetUser godoc
+// @Summary      Obter um registro específico
+// @Description  Recupera um registro pelo ID do banco de dados
+// @Tags         registers
+// @Accept       json
+// @Produce      json
+// @Param        uid   path      string  true  "ID do Registro"
+// @Success      200  {object}  models.Register
+// @Failure      400  {object}  map[string]string
+// @Failure      404  {object}  map[string]string
+// @Router       /api/registers/{uid} [get]
+func GetRegister(c *gin.Context) {
+	id, err := uuid.Parse(c.Param("uid"))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "ID inválido"})
+		return
+	}
+
+	var register models.Register
+
+	if result := database.DB.First(&register, "uid = ?", id); result.Error != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Registro não encontrado"})
+		return
+	}
+
+	c.JSON(http.StatusOK, register)
 }

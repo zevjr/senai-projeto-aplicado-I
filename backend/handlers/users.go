@@ -10,7 +10,7 @@ import (
 
 // GetUsers godoc
 // @Summary      Get all users
-// @Description  Retrieves all users from the database
+// @Description  Recupera todos os usuários do banco de dados
 // @Tags         users
 // @Accept       json
 // @Produce      json
@@ -37,7 +37,7 @@ func GetUsers(c *gin.Context) {
 // @Failure      404  {object}  map[string]string
 // @Router       /api/users/{id} [get]
 func GetUser(c *gin.Context) {
-	id, err := uuid.Parse(c.Param("id"))
+	id, err := uuid.Parse(c.Param("uid"))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "ID inválido"})
 		return

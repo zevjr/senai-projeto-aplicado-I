@@ -101,7 +101,7 @@ info:
 paths:
   /api/audios:
     get:
-      description: Returns a list of all audios without the file data
+      description: Retorna todos os audios sem os dados do arquivo
       produces:
       - application/json
       responses:
@@ -117,13 +117,13 @@ paths:
             additionalProperties:
               type: string
             type: object
-      summary: List all audios (metadata only)
+      summary: Retorna todos os audios
       tags:
       - audios
     post:
       consumes:
       - multipart/form-data
-      description: Saves an audio file to the database
+      description: Salva um arquivo de áudio no banco de dados
       parameters:
       - description: Audio to upload
         in: formData
@@ -149,12 +149,12 @@ paths:
             additionalProperties:
               type: string
             type: object
-      summary: Upload an audio file
+      summary: Carrega um arquivo de áudio
       tags:
       - audios
   /api/audios/{uid}:
     get:
-      description: Retrieves an audio file by UID from the database
+      description: Recupera um arquivo de áudio pelo UID do banco de dados
       parameters:
       - description: Audio UID
         in: path
@@ -180,7 +180,7 @@ paths:
             additionalProperties:
               type: string
             type: object
-      summary: Download an audio file
+      summary: Baixa um arquivo de áudio
       tags:
       - audios
   /api/health:
@@ -202,7 +202,7 @@ paths:
       - sistema
   /api/images:
     get:
-      description: Returns a list of all images without the file data
+      description: Retorna todas as imagens sem os dados do arquivo
       produces:
       - application/json
       responses:
@@ -218,13 +218,13 @@ paths:
             additionalProperties:
               type: string
             type: object
-      summary: List all images (metadata only)
+      summary: Retorna todas as imagens
       tags:
       - images
     post:
       consumes:
       - multipart/form-data
-      description: Saves an image to the database
+      description: Salva uma imagem no banco de dados
       parameters:
       - description: Image to upload
         in: formData
@@ -250,12 +250,12 @@ paths:
             additionalProperties:
               type: string
             type: object
-      summary: Upload an image
+      summary: Carrega uma imagem
       tags:
       - images
   /api/images/{uid}:
     get:
-      description: Retrieves an image by UID from the database
+      description: Recupera uma imagem pelo UID do banco de dados
       parameters:
       - description: Image UID
         in: path
@@ -281,7 +281,7 @@ paths:
             additionalProperties:
               type: string
             type: object
-      summary: Download an image
+      summary: Baixa uma imagem
       tags:
       - images
   /api/registers:
@@ -340,11 +340,44 @@ paths:
       summary: Criar um novo registro
       tags:
       - registers
+  /api/registers/{uid}:
+    get:
+      consumes:
+      - application/json
+      description: Recupera um registro pelo ID do banco de dados
+      parameters:
+      - description: ID do Registro
+        in: path
+        name: uid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Register'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Obter um registro específico
+      tags:
+      - registers
   /api/users:
     get:
       consumes:
       - application/json
-      description: Retrieves all users from the database
+      description: Recupera todos os usuários do banco de dados
       produces:
       - application/json
       responses:

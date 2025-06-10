@@ -17,14 +17,14 @@ const docTemplate = `{
     "paths": {
         "/api/audios": {
             "get": {
-                "description": "Returns a list of all audios without the file data",
+                "description": "Retorna todos os audios sem os dados do arquivo",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
                     "audios"
                 ],
-                "summary": "List all audios (metadata only)",
+                "summary": "Retorna todos os audios",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -47,7 +47,7 @@ const docTemplate = `{
                 }
             },
             "post": {
-                "description": "Saves an audio file to the database",
+                "description": "Salva um arquivo de áudio no banco de dados",
                 "consumes": [
                     "multipart/form-data"
                 ],
@@ -57,7 +57,7 @@ const docTemplate = `{
                 "tags": [
                     "audios"
                 ],
-                "summary": "Upload an audio file",
+                "summary": "Carrega um arquivo de áudio",
                 "parameters": [
                     {
                         "type": "file",
@@ -97,14 +97,14 @@ const docTemplate = `{
         },
         "/api/audios/{uid}": {
             "get": {
-                "description": "Retrieves an audio file by UID from the database",
+                "description": "Recupera um arquivo de áudio pelo UID do banco de dados",
                 "produces": [
                     "application/octet-stream"
                 ],
                 "tags": [
                     "audios"
                 ],
-                "summary": "Download an audio file",
+                "summary": "Baixa um arquivo de áudio",
                 "parameters": [
                     {
                         "type": "string",
@@ -170,14 +170,14 @@ const docTemplate = `{
         },
         "/api/images": {
             "get": {
-                "description": "Returns a list of all images without the file data",
+                "description": "Retorna todas as imagens sem os dados do arquivo",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
                     "images"
                 ],
-                "summary": "List all images (metadata only)",
+                "summary": "Retorna todas as imagens",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -200,7 +200,7 @@ const docTemplate = `{
                 }
             },
             "post": {
-                "description": "Saves an image to the database",
+                "description": "Salva uma imagem no banco de dados",
                 "consumes": [
                     "multipart/form-data"
                 ],
@@ -210,7 +210,7 @@ const docTemplate = `{
                 "tags": [
                     "images"
                 ],
-                "summary": "Upload an image",
+                "summary": "Carrega uma imagem",
                 "parameters": [
                     {
                         "type": "file",
@@ -250,14 +250,14 @@ const docTemplate = `{
         },
         "/api/images/{uid}": {
             "get": {
-                "description": "Retrieves an image by UID from the database",
+                "description": "Recupera uma imagem pelo UID do banco de dados",
                 "produces": [
                     "application/octet-stream"
                 ],
                 "tags": [
                     "images"
                 ],
-                "summary": "Download an image",
+                "summary": "Baixa uma imagem",
                 "parameters": [
                     {
                         "type": "string",
@@ -380,9 +380,59 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/registers/{uid}": {
+            "get": {
+                "description": "Recupera um registro pelo ID do banco de dados",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "registers"
+                ],
+                "summary": "Obter um registro específico",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID do Registro",
+                        "name": "uid",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Register"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/users": {
             "get": {
-                "description": "Retrieves all users from the database",
+                "description": "Recupera todos os usuários do banco de dados",
                 "consumes": [
                     "application/json"
                 ],

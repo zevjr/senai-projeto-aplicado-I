@@ -13,8 +13,8 @@ import (
 )
 
 // UploadImage godoc
-// @Summary      Upload an image
-// @Description  Saves an image to the database
+// @Summary      Carrega uma imagem
+// @Description  Salva uma imagem no banco de dados
 // @Tags         images
 // @Accept       multipart/form-data
 // @Produce      json
@@ -55,8 +55,8 @@ func UploadImage(c *gin.Context) {
 }
 
 // GetImage godoc
-// @Summary      Download an image
-// @Description  Retrieves an image by UID from the database
+// @Summary      Baixa uma imagem
+// @Description  Recupera uma imagem pelo UID do banco de dados
 // @Tags         images
 // @Produce      application/octet-stream
 // @Param        uid  path      string  true  "Image UID"
@@ -81,8 +81,8 @@ func GetImage(c *gin.Context) {
 }
 
 // GetImages godoc
-// @Summary      List all images (metadata only)
-// @Description  Returns a list of all images without the file data
+// @Summary      Retorna todas as imagens
+// @Description  Retorna todas as imagens sem os dados do arquivo
 // @Tags         images
 // @Produce      json
 // @Success      200  {array}  dto.ImageWithoutData
@@ -101,8 +101,8 @@ func GetImages(c *gin.Context) {
 }
 
 // GetImages godoc
-// @Summary      List all audios (metadata only)
-// @Description  Returns a list of all audios without the file data
+// @Summary      Retorna todos os audios
+// @Description  Retorna todos os audios sem os dados do arquivo
 // @Tags         audios
 // @Produce      json
 // @Success      200  {array}  dto.AudioWithoutData
@@ -120,8 +120,8 @@ func GetAudios(c *gin.Context) {
 }
 
 // UploadAudio godoc
-// @Summary      Upload an audio file
-// @Description  Saves an audio file to the database
+// @Summary      Carrega um arquivo de áudio
+// @Description  Salva um arquivo de áudio no banco de dados
 // @Tags         audios
 // @Accept       multipart/form-data
 // @Produce      json
@@ -162,8 +162,8 @@ func UploadAudio(c *gin.Context) {
 }
 
 // GetAudio godoc
-// @Summary      Download an audio file
-// @Description  Retrieves an audio file by UID from the database
+// @Summary      Baixa um arquivo de áudio
+// @Description  Recupera um arquivo de áudio pelo UID do banco de dados
 // @Tags         audios
 // @Produce      application/octet-stream
 // @Param        uid  path      string  true  "Audio UID"
