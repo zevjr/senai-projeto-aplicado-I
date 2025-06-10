@@ -1,0 +1,148 @@
+package handlers
+
+import (
+	"io"
+	"net/http"
+	"time"
+
+	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
+	"github.com/zevjr/senai-projeto-aplicado-I/database"
+	"github.com/zevjr/senai-projeto-aplicado-I/models"
+)
+
+// UploadImage godoc
+// @Summary      Upload an image
+// @Description  Saves an image to the database
+// @Tags         images
+// @Accept       multipart/form-data
+// @Produce      json
+// @Param        file  formData  file  true  "Image to upload"
+// @Success      201  {object}  models.Image
+// @Failure      400  {object}  map[string]string
+// @Failure      500  {object}  map[string]string
+// @Router       /api/images [post]
+func UploadImage(c *gin.Context) {
+	fileHeader, err := c.FormFile("file")
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "File is required"})
+		return
+	}
+	file, err := fileHeader.Open()
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Cannot open file"})
+		return
+	}
+	defer file.Close()
+	data, err := io.ReadAll(file)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Cannot read file"})
+		return
+	}
+	img := models.Image{
+		UID:       uuid.New(),
+		Name:      fileHeader.Filename,
+		MimeType:  fileHeader.Header.Get("Content-Type"),
+		Data:      data,
+		CreatedAt: time.Now(),
+	}
+	if result := database.DB.Create(&img); result.Error != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
+		return
+	}
+	c.JSON(http.StatusCreated, img)
+}
+
+// GetImage godoc
+// @Summary      Download an image
+// @Description  Retrieves an image by UID from the database
+// @Tags         images
+// @Produce      application/octet-stream
+// @Param        uid  path      string  true  "Image UID"
+// @Success      200  {file}    file
+// @Failure      400  {object}  map[string]string
+// @Failure      404  {object}  map[string]string
+// @Router       /api/images/{uid} [get]
+func GetImage(c *gin.Context) {
+	uid, err := uuid.Parse(c.Param("uid"))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid UID"})
+		return
+	}
+	var img models.Image
+	if result := database.DB.First(&img, "uid = ?", uid); result.Error != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Image not found"})
+		return
+	}
+	c.Header("Content-Disposition", "attachment; filename=\""+img.Name+"\"")
+	c.Header("Content-Type", img.MimeType)
+	c.Data(http.StatusOK, img.MimeType, img.Data)
+}
+
+// UploadAudio godoc
+// @Summary      Upload an audio file
+// @Description  Saves an audio file to the database
+// @Tags         audios
+// @Accept       multipart/form-data
+// @Produce      json
+// @Param        file  formData  file  true  "Audio to upload"
+// @Success      201  {object}  models.Audio
+// @Failure      400  {object}  map[string]string
+// @Failure      500  {object}  map[string]string
+// @Router       /api/audios [post]
+func UploadAudio(c *gin.Context) {
+	fileHeader, err := c.FormFile("file")
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "File is required"})
+		return
+	}
+	file, err := fileHeader.Open()
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Cannot open file"})
+		return
+	}
+	defer file.Close()
+	data, err := io.ReadAll(file)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Cannot read file"})
+		return
+	}
+	audio := models.Audio{
+		UID:       uuid.New(),
+		Name:      fileHeader.Filename,
+		MimeType:  fileHeader.Header.Get("Content-Type"),
+		Data:      data,
+		CreatedAt: time.Now(),
+	}
+	if result := database.DB.Create(&audio); result.Error != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
+		return
+	}
+	c.JSON(http.StatusCreated, audio)
+}
+
+// GetAudio godoc
+// @Summary      Download an audio file
+// @Description  Retrieves an audio file by UID from the database
+// @Tags         audios
+// @Produce      application/octet-stream
+// @Param        uid  path      string  true  "Audio UID"
+// @Success      200  {file}    file
+// @Failure      400  {object}  map[string]string
+// @Failure      404  {object}  map[string]string
+// @Router       /api/audios/{uid} [get]
+func GetAudio(c *gin.Context) {
+	uid, err := uuid.Parse(c.Param("uid"))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid UID"})
+		return
+	}
+	var audio models.Audio
+	if result := database.DB.First(&audio, "uid = ?", uid); result.Error != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Audio not found"})
+		return
+	}
+	c.Header("Content-Disposition", "attachment; filename=\""+audio.Name+"\"")
+	c.Header("Content-Type", audio.MimeType)
+	c.Data(http.StatusOK, audio.MimeType, audio.Data)
+}

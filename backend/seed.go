@@ -78,25 +78,6 @@ func SeedDatabase(db *gorm.DB) {
 		},
 	}
 
-	// Criando imagens e áudios
-	images := []models.Image{
-		{
-			UID:        imageUID,
-			BucketName: "default-bucket",
-			BucketID:   "default-image",
-			CreatedAt:  time.Now(),
-		},
-	}
-
-	audios := []models.Audio{
-		{
-			UID:        audioUID,
-			BucketName: "default-bucket",
-			BucketID:   "default-audio",
-			CreatedAt:  time.Now(),
-		},
-	}
-
 	// Criando relações
 	userRisks := []models.UserRisk{
 		{
@@ -120,8 +101,6 @@ func SeedDatabase(db *gorm.DB) {
 	db.Create(&users)
 	db.Create(&risks)
 	db.Create(&registers)
-	db.Create(&images)
-	db.Create(&audios)
 	db.Create(&userRisks)
 	db.Create(&userRegisters)
 

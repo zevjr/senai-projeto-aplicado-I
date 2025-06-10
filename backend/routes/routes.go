@@ -21,6 +21,12 @@ func SetupRouter() *gin.Engine {
 	r.GET("/api/registers", handlers.GetRegisters)
 	r.POST("/api/registers", handlers.CreateRegister)
 
+	// Rotas para arquivos
+	r.POST("/api/images", handlers.UploadImage)
+	r.GET("/api/images/:uid", handlers.GetImage)
+	r.POST("/api/audios", handlers.UploadAudio)
+	r.GET("/api/audios/:uid", handlers.GetAudio)
+
 	// Swagger
 	r.GET("/api/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 

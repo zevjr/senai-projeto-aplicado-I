@@ -1,5 +1,37 @@
 basePath: /
 definitions:
+  models.Audio:
+    properties:
+      created_at:
+        type: string
+      data:
+        description: For PostgreSQL
+        items:
+          type: integer
+        type: array
+      mime_type:
+        type: string
+      name:
+        type: string
+      uid:
+        type: string
+    type: object
+  models.Image:
+    properties:
+      created_at:
+        type: string
+      data:
+        description: For PostgreSQL
+        items:
+          type: integer
+        type: array
+      mime_type:
+        type: string
+      name:
+        type: string
+      uid:
+        type: string
+    type: object
   models.Register:
     properties:
       audio_uid:
@@ -27,6 +59,10 @@ definitions:
         type: string
       deleted_at:
         type: string
+      email:
+        type: string
+      password:
+        type: string
       role:
         type: string
       uid:
@@ -41,6 +77,70 @@ info:
   title: Senai Projeto Aplicado I API
   version: "1.0"
 paths:
+  /api/audios:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Saves an audio file to the database
+      parameters:
+      - description: Audio to upload
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Audio'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Upload an audio file
+      tags:
+      - audios
+  /api/audios/{uid}:
+    get:
+      description: Retrieves an audio file by UID from the database
+      parameters:
+      - description: Audio UID
+        in: path
+        name: uid
+        required: true
+        type: string
+      produces:
+      - application/octet-stream
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: file
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Download an audio file
+      tags:
+      - audios
   /api/health:
     get:
       consumes:
@@ -58,6 +158,70 @@ paths:
       summary: Verificar saúde da API
       tags:
       - sistema
+  /api/images:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Saves an image to the database
+      parameters:
+      - description: Image to upload
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Image'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Upload an image
+      tags:
+      - images
+  /api/images/{uid}:
+    get:
+      description: Retrieves an image by UID from the database
+      parameters:
+      - description: Image UID
+        in: path
+        name: uid
+        required: true
+        type: string
+      produces:
+      - application/octet-stream
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: file
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Download an image
+      tags:
+      - images
   /api/registers:
     get:
       consumes:
