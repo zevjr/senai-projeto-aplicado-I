@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"github.com/zevjr/senai-projeto-aplicado-I/dto"
 	"io"
 	"net/http"
 	"time"
@@ -77,6 +78,45 @@ func GetImage(c *gin.Context) {
 	c.Header("Content-Disposition", "attachment; filename=\""+img.Name+"\"")
 	c.Header("Content-Type", img.MimeType)
 	c.Data(http.StatusOK, img.MimeType, img.Data)
+}
+
+// GetImages godoc
+// @Summary      List all images (metadata only)
+// @Description  Returns a list of all images without the file data
+// @Tags         images
+// @Produce      json
+// @Success      200  {array}  dto.ImageWithoutData
+// @Failure      500  {object}  map[string]string
+// @Router       /api/images [get]
+func GetImages(c *gin.Context) {
+	var images []dto.ImageWithoutData
+	if result := database.DB.Model(&models.Image{}).
+		Select("uid, name, mime_type, created_at").
+		Find(&images); result.Error != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, images)
+}
+
+// GetImages godoc
+// @Summary      List all audios (metadata only)
+// @Description  Returns a list of all audios without the file data
+// @Tags         audios
+// @Produce      json
+// @Success      200  {array}  dto.AudioWithoutData
+// @Failure      500  {object}  map[string]string
+// @Router       /api/audios [get]
+func GetAudios(c *gin.Context) {
+	var audios []dto.AudioWithoutData
+	if result := database.DB.Model(&models.Audio{}).
+		Select("uid, name, mime_type, created_at").
+		Find(&audios); result.Error != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
+	}
+
+	c.JSON(http.StatusOK, audios)
 }
 
 // UploadAudio godoc

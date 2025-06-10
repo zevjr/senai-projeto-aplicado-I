@@ -16,6 +16,36 @@ const docTemplate = `{
     "basePath": "{{.BasePath}}",
     "paths": {
         "/api/audios": {
+            "get": {
+                "description": "Returns a list of all audios without the file data",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "audios"
+                ],
+                "summary": "List all audios (metadata only)",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/dto.AudioWithoutData"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            },
             "post": {
                 "description": "Saves an audio file to the database",
                 "consumes": [
@@ -139,6 +169,36 @@ const docTemplate = `{
             }
         },
         "/api/images": {
+            "get": {
+                "description": "Returns a list of all images without the file data",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "images"
+                ],
+                "summary": "List all images (metadata only)",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/dto.ImageWithoutData"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            },
             "post": {
                 "description": "Saves an image to the database",
                 "consumes": [
@@ -448,6 +508,40 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "dto.AudioWithoutData": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "mime_type": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "uid": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.ImageWithoutData": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "mime_type": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "uid": {
+                    "type": "string"
+                }
+            }
+        },
         "models.Audio": {
             "type": "object",
             "properties": {

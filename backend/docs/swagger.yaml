@@ -1,5 +1,27 @@
 basePath: /
 definitions:
+  dto.AudioWithoutData:
+    properties:
+      created_at:
+        type: string
+      mime_type:
+        type: string
+      name:
+        type: string
+      uid:
+        type: string
+    type: object
+  dto.ImageWithoutData:
+    properties:
+      created_at:
+        type: string
+      mime_type:
+        type: string
+      name:
+        type: string
+      uid:
+        type: string
+    type: object
   models.Audio:
     properties:
       created_at:
@@ -78,6 +100,26 @@ info:
   version: "1.0"
 paths:
   /api/audios:
+    get:
+      description: Returns a list of all audios without the file data
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dto.AudioWithoutData'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: List all audios (metadata only)
+      tags:
+      - audios
     post:
       consumes:
       - multipart/form-data
@@ -159,6 +201,26 @@ paths:
       tags:
       - sistema
   /api/images:
+    get:
+      description: Returns a list of all images without the file data
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dto.ImageWithoutData'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: List all images (metadata only)
+      tags:
+      - images
     post:
       consumes:
       - multipart/form-data
