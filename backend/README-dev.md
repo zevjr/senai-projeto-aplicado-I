@@ -52,7 +52,7 @@ go mod tidy
 ### 3. Executar a Aplicação
 
 ```bash
-go run main.go
+go run *.go
 ```
 
 A API estará disponível em `http://localhost:8080`
@@ -416,11 +416,45 @@ func GetCategoriesPaginated(c *gin.Context) {
 A documentação da API é gerada automaticamente e está disponível em:
 `http://localhost:8080/api/swagger/index.html`
 
+### Instalação do Swag CLI
+
+Primeiro, instale a ferramenta `swag`:
+
+```bash
+go install github.com/swaggo/swag/cmd/swag@latest
+```
+
+### Configurar PATH (Opcional)
+
+Para usar `swag` diretamente sem especificar o caminho completo:
+
+```bash
+echo 'export PATH=$PATH:$(go env GOPATH)/bin' >> ~/.zshrc
+source ~/.zshrc
+```
+
+### Gerar Documentação
+
 Para regenerar a documentação após adicionar novos endpoints:
 
 ```bash
+# Se configurou o PATH
 swag init
+
+# Ou usando o caminho completo
+$(go env GOPATH)/bin/swag init
 ```
+
+### Arquivos Gerados
+
+O comando `swag init` gera automaticamente:
+- `docs/docs.go` - Código Go da documentação
+- `docs/swagger.json` - Especificação JSON da API
+- `docs/swagger.yaml` - Especificação YAML da API
+
+### Acessar a Documentação
+
+ Acesse: http://localhost:8080/api/swagger/index.html
 
 ## Comandos Úteis
 
