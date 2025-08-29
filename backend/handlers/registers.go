@@ -30,6 +30,9 @@ func CreateRegister(c *gin.Context) {
 	register.UID = uuid.New()
 	register.CreatedAt = time.Now()
 
+	//register.Body
+	//database.DB.Find(&models.Image{}, "uid = ?", register.ImageUID)
+	// criar uma go routine para trasncrever audio e enviar para IA para analise de risco
 	//TODO: IA
 
 	if result := database.DB.Create(&register); result.Error != nil {
