@@ -1,6 +1,6 @@
 <div class="container-fluid py-5" data-bs-theme="dark">
   <div class="row justify-content-center">
-    <div class="col-lg-10 col-xl-8">
+    <div>
     <h2 class="text-center mb-4">Registros</h2>
 
       <!-- Card principal -->
@@ -16,7 +16,7 @@
 
           <!-- Conteúdo principal -->
 <!--          <ng-container *ngIf="!isLoading; else loadingTemplate">-->
-            <div class="risk-cards-container">
+            <div>
             @for (risk of filteredRisks(); track risk.uid) {
               <app-risk-card
                       [register]="risk"

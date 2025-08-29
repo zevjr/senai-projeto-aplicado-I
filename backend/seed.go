@@ -63,7 +63,8 @@ func SeedDatabase(db *gorm.DB) {
 	imageUID := uuid.New()
 	audioUID := uuid.New()
 	registerUID := uuid.New()
-
+	registerUID2 := uuid.New()
+	registerUID3 := uuid.New()
 	registers := []models.Register{
 		{
 			UID:       registerUID,
@@ -71,7 +72,27 @@ func SeedDatabase(db *gorm.DB) {
 			Body:      "Este é um registro de teste criado automaticamente",
 			RiskScale: 3,
 			Local:     "Área de produção",
-			Status:    "aberto",
+			Status:    "Aberto",
+			ImageUID:  imageUID,
+			AudioUID:  audioUID,
+			CreatedAt: time.Now(),
+		}, {
+			UID:       registerUID2,
+			Title:     "Registro inicial 2",
+			Body:      "Este é um registro de teste criado automaticamente",
+			RiskScale: 7,
+			Local:     "Área de produção",
+			Status:    "Em analise",
+			ImageUID:  imageUID,
+			AudioUID:  audioUID,
+			CreatedAt: time.Now(),
+		}, {
+			UID:       registerUID3,
+			Title:     "Registro inicial 3",
+			Body:      "Este é um registro de teste criado automaticamente",
+			RiskScale: 10,
+			Local:     "Área de produção",
+			Status:    "Fechado",
 			ImageUID:  imageUID,
 			AudioUID:  audioUID,
 			CreatedAt: time.Now(),
