@@ -37,7 +37,7 @@ type Register struct {
 	UID       uuid.UUID `json:"uid" gorm:"type:uuid;primaryKey"`
 	Title     string    `json:"title" gorm:"type:varchar"`
 	Body      string    `json:"body" gorm:"type:text"`
-	RiskScale int       `json:"risk_scale" gorm:"type:integer;not null"`
+	RiskScale int       `json:"risk_scale" gorm:"type:integer;"`
 	Local     string    `json:"local" gorm:"type:varchar"`
 	Status    string    `json:"status" gorm:"type:varchar"`
 	ImageUID  uuid.UUID `json:"image_uid" gorm:"type:uuid"`
@@ -64,11 +64,13 @@ type Image struct {
 
 // Audio representa a entidade de áudios
 type Audio struct {
-	UID       uuid.UUID `json:"uid" gorm:"type:uuid;primaryKey"`
-	Name      string    `json:"name" gorm:"type:varchar"`
-	MimeType  string    `json:"mime_type" gorm:"type:varchar"`
-	Data      []byte    `json:"data" gorm:"type:bytea"` // For PostgreSQL
-	CreatedAt time.Time `json:"created_at" gorm:"type:timestamp"`
+	UID         uuid.UUID `json:"uid" gorm:"type:uuid;primaryKey"`
+	Name        string    `json:"name" gorm:"type:varchar"`
+	MimeType    string    `json:"mime_type" gorm:"type:varchar"`
+	Data        []byte    `json:"data" gorm:"type:bytea"` // For PostgreSQL
+	CreatedAt   time.Time `json:"created_at" gorm:"type:timestamp"`
+	transcricao string    `json:"transcricao,omitempty" gorm:"type:text"` // Optional transcription field
+
 }
 
 // Preference representa as preferências de usuário
