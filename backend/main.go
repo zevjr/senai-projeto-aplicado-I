@@ -7,11 +7,12 @@ package main
 // @BasePath        /
 
 import (
+	"log"
+
 	"github.com/joho/godotenv"
 	"github.com/zevjr/senai-projeto-aplicado-I/database"
 	_ "github.com/zevjr/senai-projeto-aplicado-I/docs"
 	"github.com/zevjr/senai-projeto-aplicado-I/routes"
-	"log"
 )
 
 func main() {
@@ -22,7 +23,7 @@ func main() {
 
 	// Configurar conexão com o banco de dados
 	database.SetupDB()
-	SeedDatabase(database.DB)
+	//SeedDatabase(database.DB)
 	// Configurar o router Gin
 	r := routes.SetupRouter()
 
