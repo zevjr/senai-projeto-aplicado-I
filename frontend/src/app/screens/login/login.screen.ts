@@ -1,16 +1,21 @@
 import {ChangeDetectorRef, Component, signal} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import {NgClass, NgIf} from '@angular/common';
+import {CommonModule, NgClass, NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.screen.html',
+   standalone: true,
+  //templateUrl: './login.screen.html',
   imports: [
+     CommonModule,
     ReactiveFormsModule,
+    RouterModule,
     NgIf
+     
   ],
+   templateUrl: './login.screen.html',
   styleUrls: ['./login.screen.scss']
 })
 export class LoginScreen {

@@ -1,14 +1,11 @@
 import { Component } from '@angular/core';
-import {RouterOutlet} from "@angular/router";
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-mobile-public',
-    imports: [
-        RouterOutlet
-    ],
+  standalone: true,
+  imports: [RouterOutlet],
   templateUrl: './mobile-public.layout.html',
-  styleUrl: './mobile-public.layout.scss'
+  styleUrls: ['./mobile-public.layout.scss']
 })
-export class MobilePublicLayout {
-
-}
+export class MobilePublicLayout { }
