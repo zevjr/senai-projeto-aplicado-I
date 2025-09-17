@@ -1,11 +1,12 @@
 package handlers
 
 import (
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"github.com/zevjr/senai-projeto-aplicado-I/database"
 	"github.com/zevjr/senai-projeto-aplicado-I/models"
-	"net/http"
 )
 
 // GetUsers godoc
@@ -63,22 +64,57 @@ func GetUser(c *gin.Context) {
 // @Failure      400  {object}  map[string]string
 // @Failure      500  {object}  map[string]string
 // @Router       /api/users [post]
+//func CreateUser(c *gin.Context) {
+//	var user models.User
+//	if err := c.ShouldBindJSON(&user); err != nil {
+//		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+//		return
+//	}
+//
+//	// Gerar um novo UUID se não for fornecido
+//	if user.UID == uuid.Nil {
+//		user.UID = uuid.New()
+//	}
+//
+//	if result := database.DB.Create(&user); result.Error != nil {
+//		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
+//		return
+//	}
+//
+//	c.JSON(http.StatusCreated, user)
+//}
+
+// substituindo a func acima por uma que reconheca imail ja cadastrado
 func CreateUser(c *gin.Context) {
 	var user models.User
+
+	// Lê os dados JSON enviados do front
 	if err := c.ShouldBindJSON(&user); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Dados inválidos"})
 		return
 	}
 
-	// Gerar um novo UUID se não for fornecido
+	// Verifica se o e-mail já existe
+	var existente models.User
+	if err := database.DB.Where("email = ?", user.Email).First(&existente).Error; err == nil {
+		c.JSON(http.StatusConflict, gin.H{"error": "Usuário com esse e-mail já existe"})
+		return
+	}
+
+	// Gera UUID se não vier do front
 	if user.UID == uuid.Nil {
 		user.UID = uuid.New()
 	}
 
+	// Salva o novo usuário
 	if result := database.DB.Create(&user); result.Error != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
 		return
 	}
 
-	c.JSON(http.StatusCreated, user)
+	// Retorna sucesso
+	c.JSON(http.StatusCreated, gin.H{
+		"mensagem": "Usuário criado com sucesso",
+		"usuario":  user,
+	})
 }
