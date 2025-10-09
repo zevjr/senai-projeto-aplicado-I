@@ -22,7 +22,7 @@ Sistema integrado para gestão de riscos na indústria automotiva com:
 
 ---
 ## [VIDEO] - Demonstrativo do APP
-[![Watch the video](https://i.sstatic.net/Vp2cE.png)](https://youtu.be/6StBDyFVTvw)
+[![Watch the video](https://img.youtube.com/vi/6StBDyFVTvw/maxresdefault.jpg)](https://youtu.be/6StBDyFVTvw)
 
 ## 🏗️ Arquitetura do Sistema
 
