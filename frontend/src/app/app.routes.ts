@@ -21,7 +21,8 @@ export const routes: Routes = [
     // canActivate: [AuthGuard],
     children: [
       { path: 'risks', component: RegisterListScreen },
-      { path: 'risks/new', component: RegisterFormScreen }
+      { path: 'risks/new', component: RegisterFormScreen },
+      { path: 'risks/edit/:uid', component: RegisterFormScreen }
     ]
   },
   { path: '**', redirectTo: '/login' }

@@ -6,3 +6,20 @@
   font-size: 0.875rem;
   color: #ADB5BD;
 }
+
+.delete-btn {
+  min-width: 40px;
+  height: 40px;
+  padding: 0.25rem 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  i {
+    font-size: 1.2rem;
+  }
+
+  &:hover {
+    background-color: darken(#dc3545, 10%);
+  }
+}

@@ -341,6 +341,50 @@ paths:
       summary: Obter um registro específico
       tags:
       - registers
+    put:
+      consumes:
+      - application/json
+      description: Atualiza um registro existente no banco de dados
+      parameters:
+      - description: ID do Registro
+        in: path
+        name: uid
+        required: true
+        type: string
+      - description: Dados do Registro
+        in: body
+        name: register
+        required: true
+        schema:
+          $ref: '#/definitions/models.Register'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Register'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Atualizar um registro
+      tags:
+      - registers
   /api/users:
     get:
       consumes:

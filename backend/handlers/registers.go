@@ -1,12 +1,13 @@
 package handlers
 
 import (
+	"net/http"
+	"time"
+
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"github.com/zevjr/senai-projeto-aplicado-I/database"
 	"github.com/zevjr/senai-projeto-aplicado-I/models"
-	"net/http"
-	"time"
 )
 
 // CreateRegister godoc
@@ -87,4 +88,80 @@ func GetRegister(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, register)
+}
+
+// UpdateRegister godoc
+// @Summary      Atualizar um registro
+// @Description  Atualiza um registro existente no banco de dados
+// @Tags         registers
+// @Accept       json
+// @Produce      json
+// @Param        uid      path      string         true  "ID do Registro"
+// @Param        register  body      models.Register  true  "Dados do Registro"
+// @Success      200  {object}  models.Register
+// @Failure      400  {object}  map[string]string
+// @Failure      404  {object}  map[string]string
+// @Failure      500  {object}  map[string]string
+// @Router       /api/registers/{uid} [put]
+func UpdateRegister(c *gin.Context) {
+	id, err := uuid.Parse(c.Param("uid"))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "ID inválido"})
+		return
+	}
+
+	var existingRegister models.Register
+	if result := database.DB.First(&existingRegister, "uid = ?", id); result.Error != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Registro não encontrado"})
+		return
+	}
+
+	var updatedRegister models.Register
+	if err := c.ShouldBindJSON(&updatedRegister); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	updatedRegister.UID = id
+	updatedRegister.CreatedAt = existingRegister.CreatedAt
+
+	if result := database.DB.Model(&existingRegister).Updates(updatedRegister); result.Error != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, updatedRegister)
+}
+
+// DeleteRegister godoc
+// @Summary      Deletar um registro
+// @Description  Remove um registro do banco de dados pelo UID
+// @Tags         registers
+// @Accept       json
+// @Produce      json
+// @Param        uid   path      string  true  "ID do Registro"
+// @Success      204  "No Content"
+// @Failure      400  {object}  map[string]string
+// @Failure      404  {object}  map[string]string
+// @Failure      500  {object}  map[string]string
+// @Router       /api/registers/{uid} [delete]
+func DeleteRegister(c *gin.Context) {
+	id, err := uuid.Parse(c.Param("uid"))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "ID inválido"})
+		return
+	}
+
+	var register models.Register
+	if result := database.DB.First(&register, "uid = ?", id); result.Error != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Registro não encontrado"})
+		return
+	}
+
+	if result := database.DB.Delete(&register); result.Error != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
+		return
+	}
+
+	c.Status(http.StatusNoContent)
 }

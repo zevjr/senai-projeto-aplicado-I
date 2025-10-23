@@ -17,20 +17,6 @@
         </div>
 
         <div class="mb-3">
-            <label for="riskLevel" class="form-label">Nível do risco</label>
-            <select
-                    id="riskLevel"
-                    formControlName="riskLevel"
-                    class="form-select bg-dark text-white border-secondary">
-                <option value="" disabled>Selecione o nível do risco</option>
-                <option value="Baixo">Baixo</option>
-                <option value="Médio">Médio</option>
-                <option value="Alto">Alto</option>
-                <option value="Crítico">Crítico</option>
-            </select>
-        </div>
-
-        <div class="mb-3">
             <label for="riskScale" class="form-label">Escala do Risco</label>
             <div class="d-flex align-items-center">
                 <input
@@ -55,13 +41,14 @@
         </div>
 
         <div class="mb-4">
-            <label class="form-label">Upload Áudio</label>
+            <label class="form-label" for="audioInput">Upload Áudio</label>
             <div class="upload-container border border-secondary rounded p-3 text-center">
                 <p>Adicione um áudio para nos ajudar a entender melhor o risco.</p>
                 <input
                         type="file"
                         class="d-none"
                         #audioInput
+                        id="audioInput"
                         accept="audio/*"
                         (change)="onAudioSelected($event)">
                 <button
@@ -83,13 +70,14 @@
         </div>
 
         <div class="mb-4">
-            <label class="form-label">Upload Foto</label>
+            <label class="form-label" for="photoInput">Upload Foto</label>
             <div class="upload-container border border-secondary rounded p-3 text-center">
                 <p>Adicione uma foto para nos ajudar a entender melhor o risco.</p>
                 <input
                         type="file"
                         class="d-none"
                         #photoInput
+                        id="photoInput"
                         accept="image/*"
                         (change)="onPhotoSelected($event)">
                 <button
@@ -107,7 +95,6 @@
                         </div>
                     </div>
                 }
-
             </div>
         </div>
 
@@ -120,11 +107,11 @@
         <button
                 type="submit"
                 class="btn btn-primary w-100"
-                [disabled]="riskForm.invalid || isLoading()">
-            @if (isLoading()) {
+                [disabled]="isLoading">
+            @if (isLoading) {
                 <span class="spinner-border spinner-border-sm me-2"></span>
             }
-            Submit Report
+            {{ editMode ? 'Atualizar Registro' : 'Criar Registro' }}
         </button>
     </form>
 </div>

@@ -1,9 +1,10 @@
-import {Component, signal, WritableSignal} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
 import {RegisterService} from "../../services/register.service";
 import {FileService} from "../../services/file.service";
 import {ToastrService} from "ngx-toastr";
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
     selector: 'app-risk-form',
@@ -13,26 +14,77 @@ import {ToastrService} from "ngx-toastr";
     ],
     styleUrls: ['./register-form.screen.scss']
 })
-export class RegisterFormScreen {
+export class RegisterFormScreen implements OnInit {
+    // Form
     riskForm: FormGroup;
+
+    // File Uploads
     selectedAudio: File | null = null;
     selectedPhoto: File | null = null;
-    isLoading: WritableSignal<boolean> = signal(false);
+
+    // Estado de UI
+    isLoading: boolean = false;
     errorMessage: string | null = null;
 
-    constructor(private fb: FormBuilder,
-                private http: HttpClient,
-                private registerService: RegisterService,
-                private fileService: FileService,
-                private toastr: ToastrService) {
+    // Modo de edição
+    editMode: boolean = false;
+    registerUid: string | null = null;
+
+    constructor(
+        private fb: FormBuilder,
+        private http: HttpClient,
+        private registerService: RegisterService,
+        private fileService: FileService,
+        private toastr: ToastrService,
+        private route: ActivatedRoute,
+        private router: Router
+    ) {
         this.riskForm = this.fb.group({
             location: ['', Validators.required],
-            riskLevel: ['', Validators.required],
             riskScale: [5, [Validators.required, Validators.min(1), Validators.max(10)]],
             description: ['', Validators.required]
         });
     }
 
+    ngOnInit(): void {
+        // Verificar se estamos editando um registro existente
+        this.route.paramMap.subscribe(params => {
+            const uid = params.get('uid');
+
+            if (uid) {
+                this.registerUid = uid;
+                this.editMode = true;
+                this.loadRegister(uid);
+            }
+        });
+    }
+
+    // Carrega um registro existente para edição
+    loadRegister(uid: string): void {
+        this.isLoading = true;
+
+        this.registerService.getRegister(uid as any).subscribe({
+            next: (register) => {
+                // Definir valores iniciais
+                const initialValues = {
+                    location: register.local,
+                    riskScale: register.riskScale,
+                    description: register.body
+                };
+
+                // Atualizar formulário
+                this.riskForm.patchValue(initialValues);
+                this.isLoading = false;
+            },
+            error: (error) => {
+                console.error('Erro ao carregar registro:', error);
+                this.errorMessage = 'Erro ao carregar o registro. Tente novamente.';
+                this.isLoading = false;
+            }
+        });
+    }
+
+    // Manipulação de arquivos de áudio
     onAudioSelected(event: any): void {
         const file = event.target.files[0];
         if (file) {
@@ -44,6 +96,7 @@ export class RegisterFormScreen {
         this.selectedAudio = null;
     }
 
+    // Manipulação de arquivos de imagem
     onPhotoSelected(event: any): void {
         const file = event.target.files[0];
         if (file) {
@@ -55,13 +108,23 @@ export class RegisterFormScreen {
         this.selectedPhoto = null;
     }
 
+    // Verifica se o formulário é válido
+    isFormValid(): boolean {
+        return this.riskForm.valid;
+    }
+
+    // Submissão do formulário
     onSubmit(): void {
-        this.isLoading.set(true);
+        if (!this.riskForm.valid) {
+            return;
+        }
+
+        this.isLoading = true;
         this.errorMessage = null;
 
         const uploadTasks = [];
 
-        // Upload photo if provided
+        // Upload de foto (se houver)
         if (this.selectedPhoto) {
             uploadTasks.push(
                 this.fileService.uploadImage(this.selectedPhoto).toPromise()
@@ -70,7 +133,7 @@ export class RegisterFormScreen {
             uploadTasks.push(Promise.resolve({uid: null}));
         }
 
-        // Upload audio if provided
+        // Upload de áudio (se houver)
         if (this.selectedAudio) {
             uploadTasks.push(
                 this.fileService.uploadAudio(this.selectedAudio).toPromise()
@@ -91,25 +154,35 @@ export class RegisterFormScreen {
                     audioUid: audioResponse?.uid || undefined
                 };
 
-                this.registerService.createRegister(register).subscribe(
-                    () => {
-                        console.log('Registro criado com sucesso');
-                        this.isLoading.set(false);
-                        this.riskForm.reset();
-                        this.selectedAudio = null;
-                        this.selectedPhoto = null;
+                // Escolher operação baseado no modo
+                const operation = this.editMode && this.registerUid
+                    ? this.registerService.updateRegister(this.registerUid, register)
+                    : this.registerService.createRegister(register);
+
+                operation.subscribe({
+                    next: () => {
+                        const message = this.editMode
+                            ? 'Registro atualizado com sucesso'
+                            : 'Registro criado com sucesso';
+
+                        this.toastr.success(message);
+                        this.isLoading = false;
+
+                        // Redirecionar para a lista
+                        this.router.navigate(['/risks']);
                     },
-                    error => {
-                        console.error('Erro ao criar o registro:', error);
-                        this.errorMessage = 'Erro ao criar o registro. Tente novamente.';
-                        this.isLoading.set(false);
+                    error: (error) => {
+                        const action = this.editMode ? 'atualizar' : 'criar';
+                        this.errorMessage = `Erro ao ${action} o registro. Tente novamente.`;
+                        this.toastr.error(this.errorMessage);
+                        this.isLoading = false;
                     }
-                );
+                });
             })
             .catch(error => {
-                console.error('Erro ao enviar os arquivos:', error);
                 this.errorMessage = 'Erro ao enviar os arquivos. Tente novamente.';
-                this.isLoading.set(false);
+                this.toastr.error(this.errorMessage);
+                this.isLoading = false;
             });
     }
 }

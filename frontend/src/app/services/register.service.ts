@@ -15,12 +15,19 @@ export class RegisterService {
     return this.http.get<Register[]>(this.apiUrl);
   }
 
-  getRegister(id: number): Observable<Register> {
-    return this.http.get<Register>(`${this.apiUrl}/${id}`);
+  getRegister(uuid: string): Observable<Register> {
+    return this.http.get<Register>(`${this.apiUrl}/${uuid}`);
   }
 
   createRegister(register: Partial<Register>): Observable<Register> {
     return this.http.post<Register>(this.apiUrl, register);
   }
 
+  updateRegister(uid: string, register: Partial<Register>): Observable<Register> {
+    return this.http.put<Register>(`${this.apiUrl}/${uid}`, register);
+  }
+
+  deleteRegister(uid: string) {
+    return this.http.delete(`${this.apiUrl}/${uid}`);
+  }
 }

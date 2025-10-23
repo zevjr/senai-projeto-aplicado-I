@@ -3,6 +3,7 @@ import { RegisterService } from '../../services/register.service';
 import {NgIf} from '@angular/common';
 import {RiskCardComponent} from '../../components/risk-card/risk-card.component';
 import {Register} from "../../models/register.model";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-risk-list',
@@ -19,7 +20,10 @@ export class RegisterListScreen implements OnInit {
   isLoading: WritableSignal<Boolean> = signal(false);
   errorMessage: string = '';
 
-  constructor(private registersService: RegisterService) { }
+  constructor(
+    private readonly registersService: RegisterService,
+    private readonly router: Router
+  ) { }
 
   ngOnInit(): void {
     this.loadRisks();
@@ -56,4 +60,20 @@ export class RegisterListScreen implements OnInit {
   //     (risk.person && risk.person.toLowerCase().includes(searchTerm))
   //   ));
   // }
+
+    onDeleteRisk(uid: string) {
+        this.registersService.deleteRegister(uid).subscribe({
+            next: () => {
+                this.loadRisks();
+            },
+            error: (error) => {
+                console.error(error);
+                this.errorMessage = 'Erro ao deletar risco. Por favor, tente novamente.';
+            }
+        });
+    }
+
+    onEditRisk(uid: string) {
+      this.router.navigate(['/risks/edit', uid]);
+    }
 }

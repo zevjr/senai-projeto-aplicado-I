@@ -20,6 +20,8 @@
             @for (risk of filteredRisks(); track risk.uid) {
               <app-risk-card
                       [register]="risk"
+                      (delete)="onDeleteRisk(risk.uid)"
+                      (edit)="onEditRisk(risk.uid)"
                       class="mb-3 risk-card">
               </app-risk-card>
             }

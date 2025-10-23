@@ -33,8 +33,6 @@ export class LoginScreen {
     if (this.loginForm.invalid) {
       return;
     }
-
-
     this.errorMessage = '';
 
     const { email, password } = this.loginForm.value;
