@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Register } from "../../models/register.model";
+import { ModalService } from "../../services/modal.service";
 
 @Component({
   selector: 'app-risk-card',
@@ -12,8 +13,20 @@ export class RiskCardComponent {
   @Output() delete = new EventEmitter<Register>();
   @Output() edit = new EventEmitter<Register>();
 
-  onDeleteClick(): void {
-    this.delete.emit(this.register);
+  constructor(private readonly modalService: ModalService) {}
+
+  async onDeleteClick(): Promise<void> {
+
+    const confirmed = await this.modalService.open({
+      title: 'Confirmar Exclusão',
+      message: `Tem certeza que deseja excluir o risco "${this.register.title}"? Esta ação não pode ser desfeita.`,
+      confirmText: 'Sim, excluir',
+      cancelText: 'Cancelar'
+    });
+
+    if (confirmed) {
+      this.delete.emit(this.register);
+    }
   }
 
   onEditClick(): void {

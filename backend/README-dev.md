@@ -454,7 +454,7 @@ O comando `swag init` gera automaticamente:
 
 ### Acessar a Documentação
 
- Acesse: http://localhost:8080/api/swagger/index.html
+ Acesse: http://localhost:8080/api/!swagger/index.html
 
 ## Comandos Úteis
 
