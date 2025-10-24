@@ -22,6 +22,9 @@ Sistema integrado para gestão de riscos na indústria automotiva com:
 
 ---
 ## [VIDEO] - Demonstrativo do APP
+[![Watch the video](https://img.youtube.com/vi/I1zNt1AEwpo/maxresdefault.jpg)](https://youtu.be/I1zNt1AEwpo)
+
+## - PROJETO APLICADO I
 [![Watch the video](https://img.youtube.com/vi/6StBDyFVTvw/maxresdefault.jpg)](https://youtu.be/6StBDyFVTvw)
 
 ## 🏗️ Arquitetura do Sistema
@@ -138,9 +141,10 @@ Distribuído sob licença MIT. Veja `LICENSE` para mais informações.
 ## ✉️ Contato
 
 Equipe de Desenvolvimento:
-- Alan Silva - [@alan](https://github.com/alan)
-- Gabriel Santos - [@gabriel](https://github.com/gabriel)
+- Alan Silva - [@alan](https://github.com/silva-d-alan)
+- Gabriel Santos - [@gabriel](https://github.com/GabrielCarvalhu)
 - José Vieira - [@zevjr](https://github.com/zevjr)
-- Leandro Silva - [@leandro](https://github.com/leandro)
+- Leandro Silva - [@leandro](https://github.com/Leandro-Michail-Krikis)
+- Elisana Salvador - [@elisana](https://github.com/ElisanaSalvador)
 
 Projeto desenvolvido como parte do curso de **Análise e Desenvolvimento de Sistemas** no [SENAI/SC](https://www.sc.senai.br/).
