@@ -1,9 +1,10 @@
 package main
 
 import (
-	"github.com/zevjr/senai-projeto-aplicado-I/models"
 	"log"
 	"time"
+
+	"github.com/zevjr/senai-projeto-aplicado-I/models"
 
 	"github.com/google/uuid"
 	"gorm.io/gorm"
@@ -71,7 +72,7 @@ func SeedDatabase(db *gorm.DB) {
 			Title:     "Registro inicial",
 			Body:      "Este é um registro de teste criado automaticamente",
 			RiskScale: 3,
-			Local:     "Área de produção",
+			Local:     "Furadeira/Área de produção",
 			Status:    "Aberto",
 			ImageUID:  imageUID,
 			AudioUID:  audioUID,
@@ -81,7 +82,7 @@ func SeedDatabase(db *gorm.DB) {
 			Title:     "Registro inicial 2",
 			Body:      "Este é um registro de teste criado automaticamente",
 			RiskScale: 7,
-			Local:     "Área de produção",
+			Local:     "Furadeira/Área de produção",
 			Status:    "Em analise",
 			ImageUID:  imageUID,
 			AudioUID:  audioUID,
@@ -91,7 +92,7 @@ func SeedDatabase(db *gorm.DB) {
 			Title:     "Registro inicial 3",
 			Body:      "Este é um registro de teste criado automaticamente",
 			RiskScale: 10,
-			Local:     "Área de produção",
+			Local:     "Furadeira/Área de produção",
 			Status:    "Fechado",
 			ImageUID:  imageUID,
 			AudioUID:  audioUID,
