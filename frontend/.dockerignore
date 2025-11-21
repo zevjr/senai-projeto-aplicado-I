@@ -1,0 +1,30 @@
+# Dependências
+node_modules
+npm-debug.log
+# package-lock.json deve ser copiado para garantir build reproduzível
+
+# Arquivos de build
+dist
+.angular
+
+# Arquivos Git
+.git
+.gitignore
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# Testes
+coverage
+*.spec.ts
+
+# Arquivos de desenvolvimento
+*.md
+.editorconfig
+
+# Logs
+*.log

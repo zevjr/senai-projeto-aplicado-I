@@ -1,0 +1,35 @@
+# Arquivos Git
+.git
+.gitignore
+
+# Arquivos de ambiente (serão gerados no build)
+.env
+.env.*
+env.example
+
+# Arquivos de desenvolvimento
+*.md
+
+# Binários
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+senai-projeto-aplicado-I
+
+# Test binary
+*.test
+
+# Output of the go coverage tool
+*.out
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# Logs
+*.log

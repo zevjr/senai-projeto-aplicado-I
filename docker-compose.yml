@@ -1,0 +1,68 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: senai-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: risk_register
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - senai-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: senai-backend
+    ports:
+      - "8080:8080"
+    environment:
+      DB_HOST: postgres
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: risk_register
+      DB_PORT: 5432
+      GIN_MODE: release
+      PORT: 8080
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - senai-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: senai-frontend
+    ports:
+      - "4200:4200"
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./frontend/src/app:/app/src/app
+      - ./frontend/src/index.html:/app/src/index.html
+      - ./frontend/src/styles.scss:/app/src/styles.scss
+      - ./frontend/angular.json:/app/angular.json
+      - ./frontend/tsconfig.json:/app/tsconfig.json
+      - ./frontend/tsconfig.app.json:/app/tsconfig.app.json
+    networks:
+      - senai-network
+    depends_on:
+      - backend
+
+networks:
+  senai-network:
+    driver: bridge
+
+volumes:
+  postgres_data:

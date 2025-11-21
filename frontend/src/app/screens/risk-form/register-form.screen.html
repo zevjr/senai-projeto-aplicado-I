@@ -3,16 +3,20 @@
 
     <form [formGroup]="riskForm" (ngSubmit)="onSubmit()">
         <div class="mb-3">
-            <label for="location" class="form-label">Localização</label>
+            <label for="location" class="form-label">Equipamento / Setor</label>
             <select
                     id="location"
                     formControlName="location"
                     class="form-select bg-dark text-white border-secondary">
                 <option value="" disabled>Selecionar Localização</option>
-                <option value="assembly_line_1">Linha de montagem 1</option>
-                <option value="assembly_line_2">Linha de montagem 2</option>
-                <option value="warehouse">Estoque</option>
-                <option value="testing_area">Area de testes</option>
+                <option value="assembly_line_1">Furadeira/Linha de montagem 1</option>
+                <option value="assembly_line_2">Furadeira/Linha de montagem 2</option>
+                <option value="warehouse">Furadeira/Estoque</option>
+                <option value="testing_area">Furadeira/Area de testes</option>
+                <option value="assembly_line_1">Prensa/Linha de montagem 1</option>
+                <option value="assembly_line_2">Prensa/Linha de montagem 2</option>
+                <option value="warehouse">Prensas/Estoque</option>
+                <option value="testing_area">Prensa/Area de testes</option>
             </select>
         </div>
 
