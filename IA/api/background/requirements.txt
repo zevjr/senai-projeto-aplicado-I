@@ -1,0 +1,13 @@
+python-dotenv
+openai
+langchain
+whisper
+moviepy
+psycopg2-binary
+matplotlib
+langchain
+langchain-openai
+ffmpeg-python
+torch
+torchaudio
+git+https://github.com/openai/whisper.git
