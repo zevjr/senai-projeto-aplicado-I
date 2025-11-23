@@ -1,6 +1,9 @@
 package handlers
 
 import (
+	"bytes"
+	"encoding/json"
+	"log"
 	"net/http"
 	"time"
 
@@ -35,6 +38,54 @@ func CreateRegister(c *gin.Context) {
 	//database.DB.Find(&models.Image{}, "uid = ?", register.ImageUID)
 	// criar uma go routine para trasncrever audio e enviar para IA para analise de risco
 	//TODO: IA
+	go func(reg models.Register) {
+    // 1. Monta o input para IA
+		inputValue := reg.Title + " " + reg.Body
+
+		payload := map[string]string{
+			"message": inputValue,
+		}
+
+		payloadBytes, _ := json.Marshal(payload)
+
+		// 2. Faz a requisição POST
+		resp, err := http.Post(
+			"http://127.0.0.1:7860/ia/call",
+			"application/json",
+			bytes.NewBuffer(payloadBytes),
+		)
+		if err != nil {
+			log.Printf("Erro ao chamar IA: %v", err)
+			return
+		}
+		defer resp.Body.Close()
+
+		// 3. Lê o número retornado
+		var result struct {
+			Risk int `json:"risk"`
+		}
+
+		if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+			log.Printf("Erro ao decodificar resposta da IA: %v", err)
+			return
+		}
+
+		// 4. Atualiza o registro no banco
+		updateData := map[string]interface{}{
+			"risk_scale": result.Risk,
+			"status":     "Em análise",
+			"body":       reg.Body + "\n\nEscala de risco retificada com IA",
+		}
+
+		if err := database.DB.Model(&models.Register{}).Where("uid = ?", reg.UID).Updates(updateData).Error; err != nil {
+			log.Printf("Erro ao atualizar registro com IA: %v", err)
+			return
+		}
+
+		log.Printf("Registro %s atualizado com IA. RiskScale=%d", reg.UID, result.Risk)
+
+	}(register)
+
 
 	if result := database.DB.Create(&register); result.Error != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
