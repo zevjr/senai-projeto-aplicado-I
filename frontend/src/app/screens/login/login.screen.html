@@ -21,10 +21,11 @@
             placeholder="Senha"
             required>
         </div>
-
-        <div class="alert alert-danger" *ngIf="errorMessage">
-          {{ errorMessage }}
-        </div>
+        @if (errorMessage) {
+          <div class="alert alert-danger">
+            {{ errorMessage }}
+          </div>
+        }
 
         <button
           type="submit"

@@ -1,6 +1,5 @@
 import {Component, OnInit, signal, WritableSignal} from '@angular/core';
 import { RegisterService } from '../../services/register.service';
-import {NgIf} from '@angular/common';
 import {RiskCardComponent} from '../../components/risk-card/risk-card.component';
 import {Register} from "../../models/register.model";
 import {Router} from '@angular/router';
@@ -9,7 +8,6 @@ import {Router} from '@angular/router';
   selector: 'app-risk-list',
   templateUrl: './register-list.screen.html',
   imports: [
-    NgIf,
     RiskCardComponent
   ],
   styleUrls: ['./register-list.screen.scss']

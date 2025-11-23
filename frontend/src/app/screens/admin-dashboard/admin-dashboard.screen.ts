@@ -1,5 +1,5 @@
 import { Component, OnInit, signal, WritableSignal } from '@angular/core';
-import { DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { DatePipe, NgClass } from '@angular/common';
 import { RegisterService } from '../../services/register.service';
 import { Register } from '../../models/register.model';
 
@@ -29,8 +29,6 @@ interface DashboardGroup {
   templateUrl: './admin-dashboard.screen.html',
   styleUrls: ['./admin-dashboard.screen.scss'],
   imports: [
-    NgIf,
-    NgFor,
     NgClass,
     DatePipe
   ]

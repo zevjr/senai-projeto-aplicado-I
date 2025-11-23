@@ -8,10 +8,12 @@
   </main>
 
   <footer class="d-flex justify-content-around p-2 border-top border-secondary bg-dark">
-    <button class="btn btn-dark" routerLink="/admin" *ngIf="isAdmin">
+    @if (isAdmin) {
+    <button class="btn btn-dark" routerLink="/admin">
       <i class="bi bi-speedometer2"></i>
       <span class="d-block small">Gestao</span>
     </button>
+    }
     <button class="btn btn-dark" routerLink="/risks">
       <i class="bi bi-list-ul"></i>
       <span class="d-block small">Riscos</span>

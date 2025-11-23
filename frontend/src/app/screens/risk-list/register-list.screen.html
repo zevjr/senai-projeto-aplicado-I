@@ -27,13 +27,14 @@
             }
 
             </div>
+            @if (errorMessage) {
+              <div class="alert alert-danger alert-dismissible fade show">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                {{ errorMessage }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
 
-            <div class="alert alert-danger alert-dismissible fade show"
-                 *ngIf="errorMessage">
-              <i class="bi bi-exclamation-triangle-fill me-2"></i>
-              {{ errorMessage }}
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
+            }
 <!--          </ng-container>-->
 
           <!-- Template de carregamento -->
