@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import {RouterLink, RouterOutlet} from '@angular/router';
-import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'mobile-menu',
@@ -9,7 +8,6 @@ import {NgIf} from '@angular/common';
   imports: [
     RouterOutlet,
     RouterLink,
-    NgIf
   ],
   styleUrls: ['./mobile-menu.layout.scss']
 })
