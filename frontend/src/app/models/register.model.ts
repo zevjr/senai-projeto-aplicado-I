@@ -5,7 +5,10 @@ export interface Register {
     riskScale: number;
     local: string;
     status: string;
-    imageUid: string;
-    audioUid: string;
-    createdAt: string;
+    imageUid?: string;
+    image_uid?: string;
+    audioUid?: string;
+    audio_uid?: string;
+    createdAt?: string;
+    created_at?: string;
 }

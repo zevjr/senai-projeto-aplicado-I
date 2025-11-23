@@ -38,8 +38,9 @@ export class LoginScreen {
     const { email, password } = this.loginForm.value;
     this.isLoading.set(true);
     this.authService.login(email, password).subscribe({
-      next: () => {
-        this.router.navigate(['/risks']);
+      next: (user) => {
+        const destination = user.role?.toLowerCase() === 'admin' ? '/admin' : '/risks';
+        this.router.navigate([destination]);
       },
       error: (error) => {
         console.log("chegou aqui")
