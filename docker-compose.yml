@@ -59,6 +59,31 @@ services:
       - senai-network
     depends_on:
       - backend
+  api:
+    build:
+      context: ./IA/api
+    container_name: senai-api-ia
+    ports:
+      - "5000:5000"
+    depends_on:
+      - langflow
+    environment:
+      - LANGFLOW_API_URL=http://langflow:7860
+    networks:
+      - senai-network
+
+  langflow:
+    build:
+      context: ./IA/langflow
+    container_name: senai-container-ia
+    ports:
+      - "7860:7860"
+    environment:
+      - OPENAI_API_KEY=API_KEY
+    volumes:
+      - ./langflow/flows:/app/flows
+    networks:
+      - senai-network
 
 networks:
   senai-network:

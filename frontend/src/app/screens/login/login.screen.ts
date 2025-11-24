@@ -1,15 +1,13 @@
-import {ChangeDetectorRef, Component, signal} from '@angular/core';
+import {Component, signal} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import {NgClass, NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.screen.html',
   imports: [
     ReactiveFormsModule,
-    NgIf
   ],
   styleUrls: ['./login.screen.scss']
 })
@@ -38,8 +36,9 @@ export class LoginScreen {
     const { email, password } = this.loginForm.value;
     this.isLoading.set(true);
     this.authService.login(email, password).subscribe({
-      next: () => {
-        this.router.navigate(['/risks']);
+      next: (user) => {
+        const destination = user.role?.toLowerCase() === 'admin' ? '/admin' : '/risks';
+        this.router.navigate([destination]);
       },
       error: (error) => {
         console.log("chegou aqui")

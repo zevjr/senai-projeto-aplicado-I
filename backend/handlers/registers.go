@@ -1,7 +1,12 @@
 package handlers
 
 import (
+	"bytes"
+	"encoding/json"
+	"log"
 	"net/http"
+	"strconv"
+	"strings"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -35,6 +40,70 @@ func CreateRegister(c *gin.Context) {
 	//database.DB.Find(&models.Image{}, "uid = ?", register.ImageUID)
 	// criar uma go routine para trasncrever audio e enviar para IA para analise de risco
 	//TODO: IA
+	go func(reg models.Register) {
+    // 1. Monta o input para IA
+		inputValue := reg.Title + " " + reg.Body
+
+		payload := map[string]string{
+			"message": inputValue,
+		}
+
+		payloadBytes, _ := json.Marshal(payload)
+
+		// 2. Faz a requisição POST
+		resp, err := http.Post(
+			"http://api:5000/ia/call",
+			"application/json",
+			bytes.NewBuffer(payloadBytes),
+		)
+		if err != nil {
+			log.Printf("Erro ao chamar IA: %v", err)
+			return
+		}
+		defer resp.Body.Close()
+
+		// 3. Lê o número retornado
+		var result struct {
+			Response string `json:"response"`
+		}
+
+		if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+			log.Printf("Erro ao decodificar resposta da IA: %v", err)
+			return
+		}
+
+		parts := strings.SplitN(result.Response, " - ", 2)
+		if len(parts) != 2 {
+				log.Printf("Formato inesperado: %s", result.Response)
+				return
+		}
+
+		riskValue, err := strconv.Atoi(strings.TrimSpace(parts[0])) 
+		if err != nil {
+				log.Printf("Erro ao converter o risco, %s", err)
+				return
+		}
+		riskText := strings.TrimSpace(parts[1])
+		newBody := reg.Body + 
+		"\nIA Response:" + riskText +
+	  "\nEscala de risco retificada pela IA"
+
+		// 4. Atualiza o registro no banco
+		updateData := map[string]interface{}{
+			"risk_scale": riskValue,
+			"status":     "Em análise",
+			"body":       newBody,
+		}
+
+		if err := database.DB.Model(&models.Register{}).Where("uid = ?", reg.UID).Updates(updateData).Error; err != nil {
+			log.Printf("Erro ao atualizar registro com IA: %v", err)
+			return
+		}
+
+		log.Printf("Registro %s atualizado com IA. RiskScale=%d", reg.UID, riskValue)
+
+	}(register)
+
 
 	if result := database.DB.Create(&register); result.Error != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
