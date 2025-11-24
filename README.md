@@ -21,10 +21,17 @@ Sistema integrado para gestão de riscos na indústria automotiva com:
 ![GitHub repo size](https://img.shields.io/github/repo-size/zevjr/senai-projeto-aplicado-I)
 
 ---
-## [VIDEO] - Demonstrativo do APP
+
+## [VIDEO] - APP Completo 
+[![Watch the video](https://img.youtube.com/vi/w4fgGWC-gyg/maxresdefault.jpg)](https://youtu.be/w4fgGWC-gyg)
+
+---
+
+## Videos Antigos
+### Demonstrativo do APP
 [![Watch the video](https://img.youtube.com/vi/I1zNt1AEwpo/maxresdefault.jpg)](https://youtu.be/I1zNt1AEwpo)
 
-## - PROJETO APLICADO I
+### PROJETO APLICADO I
 [![Watch the video](https://img.youtube.com/vi/6StBDyFVTvw/maxresdefault.jpg)](https://youtu.be/6StBDyFVTvw)
 
 ## 🏗️ Arquitetura do Sistema
