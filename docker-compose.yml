@@ -69,6 +69,8 @@ services:
       - langflow
     environment:
       - LANGFLOW_API_URL=http://langflow:7860
+    networks:
+      - senai-network
 
   langflow:
     build:
@@ -77,9 +79,11 @@ services:
     ports:
       - "7860:7860"
     environment:
-      - OPENAI_API_KEY=credentials
+      - OPENAI_API_KEY=API_KEY
     volumes:
       - ./langflow/flows:/app/flows
+    networks:
+      - senai-network
 
 networks:
   senai-network:

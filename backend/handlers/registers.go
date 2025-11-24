@@ -5,6 +5,8 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"strconv"
+	"strings"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -50,7 +52,7 @@ func CreateRegister(c *gin.Context) {
 
 		// 2. Faz a requisição POST
 		resp, err := http.Post(
-			"http://127.0.0.1:7860/ia/call",
+			"http://api:5000/ia/call",
 			"application/json",
 			bytes.NewBuffer(payloadBytes),
 		)
@@ -62,7 +64,7 @@ func CreateRegister(c *gin.Context) {
 
 		// 3. Lê o número retornado
 		var result struct {
-			Risk int `json:"risk"`
+			Response string `json:"response"`
 		}
 
 		if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
@@ -70,11 +72,27 @@ func CreateRegister(c *gin.Context) {
 			return
 		}
 
+		parts := strings.SplitN(result.Response, " - ", 2)
+		if len(parts) != 2 {
+				log.Printf("Formato inesperado: %s", result.Response)
+				return
+		}
+
+		riskValue, err := strconv.Atoi(strings.TrimSpace(parts[0])) 
+		if err != nil {
+				log.Printf("Erro ao converter o risco, %s", err)
+				return
+		}
+		riskText := strings.TrimSpace(parts[1])
+		newBody := reg.Body + 
+		"\nIA Response:" + riskText +
+	  "\nEscala de risco retificada pela IA"
+
 		// 4. Atualiza o registro no banco
 		updateData := map[string]interface{}{
-			"risk_scale": result.Risk,
+			"risk_scale": riskValue,
 			"status":     "Em análise",
-			"body":       reg.Body + "\n\nEscala de risco retificada com IA",
+			"body":       newBody,
 		}
 
 		if err := database.DB.Model(&models.Register{}).Where("uid = ?", reg.UID).Updates(updateData).Error; err != nil {
@@ -82,7 +100,7 @@ func CreateRegister(c *gin.Context) {
 			return
 		}
 
-		log.Printf("Registro %s atualizado com IA. RiskScale=%d", reg.UID, result.Risk)
+		log.Printf("Registro %s atualizado com IA. RiskScale=%d", reg.UID, riskValue)
 
 	}(register)
 

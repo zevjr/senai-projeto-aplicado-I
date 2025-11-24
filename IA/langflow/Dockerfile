@@ -30,7 +30,9 @@ COPY langflow.json /app/config/langflow.json
 ENV LANGFLOW_PORT=7860 \
     LANGFLOW_HOST=0.0.0.0 \
     LANGFLOW_LOG_LEVEL=info \
-    LANGFLOW_IMPORT_PATH=/app/config/langflow.json
+    LANGFLOW_IMPORT_PATH=/app/config/langflow.json \
+    LANGFLOW_BACKEND_ONLY=false \
+    LANGFLOW_API_PATH=/api/v1
 
 
 # Expose Langflow default port

@@ -4,7 +4,7 @@ import requests
 
 app = Flask(__name__)
 
-LANGFLOW_API_URL = "http://langflow:7860/api/v1/run/7497172d-9fa2-4ea8-b440-c73093886402"
+LANGFLOW_API_URL = "http://langflow:7860/api/v1/run/06bebe2a-de10-4a61-b686-74e09795fd4a"
 
 def execute(input_value):
     payload = {
@@ -14,7 +14,8 @@ def execute(input_value):
     }
 
     headers = {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "x-api-key": "sk-nTU_PJLqt-E_2x8DJp03l6iirPEpZ1wz4JXNcU1-6G0"
     }
 
     try:
