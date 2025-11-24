@@ -54,3 +54,4 @@ e2e/*.map
 
 # env file
 .env
+**/.venv
